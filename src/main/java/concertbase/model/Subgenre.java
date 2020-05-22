@@ -1,5 +1,7 @@
 package concertbase.model;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 
 @Entity

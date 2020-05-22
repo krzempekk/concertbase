@@ -4,6 +4,7 @@ import concertbase.model.Genre;
 import concertbase.model.Subgenre;
 import concertbase.persistence.GenreRepository;
 import concertbase.persistence.SubgenreRespository;
+import concertbase.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -38,22 +39,24 @@ public class ConcertbaseApplication {
 //	}
 
 	@Bean
-	public CommandLineRunner demo(SubgenreRespository repository, GenreRepository genreRepository) {
+	public CommandLineRunner demo(GenreService genreService) {
 		return args -> {
 
-			genreRepository.save(new Genre("Black metal"));
+			genreService.addSubgenre("Speed metal", "Heavy metal");
+
+//			genreRepository.save(new Genre("Black metal"));
 //			repository.save(new Genre("Death metal"));
 //			repository.save(new Genre("Melodic death metal"));
 //			repository.save(new Genre("Vegetarian progressive grindcore"));
 //
 //			log.info("Genres found using findAll():");
 //			log.info("-------------------------------");
-			Genre genreFound = genreRepository.findByName("Black metal").get(0);
-			System.out.println(genreFound.getName());
-
-			Subgenre subgenre = new Subgenre("Post");
-			repository.save(subgenre);
-
+//			Genre genreFound = genreRepository.findByName("Black metal").get(0);
+//			System.out.println(genreFound.getName());
+//
+//			Subgenre subgenre = new Subgenre("Post");
+//			repository.save(subgenre);
+//
 //			subgenre.setGenre(genreFound);
 //			for (Genre genre : genreRepository.findAll()) {
 //				System.out.println(genre.getName());
