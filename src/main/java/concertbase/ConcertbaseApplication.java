@@ -1,14 +1,12 @@
 package concertbase;
 
+import concertbase.model.Genre;
+import concertbase.persistence.GenreRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 
@@ -46,6 +44,7 @@ public class ConcertbaseApplication {
 			for (Genre genre : repository.findAll()) {
 				log.info(genre.getName());
 			}
+			System.out.println(repository.findByName("Black metal").get(0).getName());
 		};
 	}
 }

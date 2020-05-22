@@ -1,5 +1,6 @@
-package concertbase;
+package concertbase.persistence;
 
+import concertbase.model.Genre;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

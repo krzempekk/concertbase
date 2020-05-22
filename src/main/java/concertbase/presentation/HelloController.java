@@ -1,4 +1,4 @@
-package concertbase;
+package concertbase.presentation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
