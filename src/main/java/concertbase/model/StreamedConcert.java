@@ -13,4 +13,12 @@ public class StreamedConcert extends Concert {
         super(name, date, organizerWebsite);
         this.website = website;
     }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 }
