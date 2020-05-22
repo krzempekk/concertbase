@@ -1,5 +1,6 @@
 package concertbase.presentation;
 
+import concertbase.model.Genre;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
