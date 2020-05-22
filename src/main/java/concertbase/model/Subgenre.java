@@ -1,6 +1,7 @@
 package concertbase.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ public class Subgenre {
 //    @JoinColumn(name="GENRE_FK")
     private Genre genre;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Artist> artists;
+    @ManyToMany(cascade=CascadeType.ALL)
+    private List<Artist> artists = new ArrayList<>();
 
     public Subgenre() {}
 

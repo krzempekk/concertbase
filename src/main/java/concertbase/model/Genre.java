@@ -12,7 +12,7 @@ public class Genre {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     private List<Subgenre> subgenres = new ArrayList<>();
 
     public Genre() {}

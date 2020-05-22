@@ -1,7 +1,11 @@
 package concertbase.persistence;
 
-import concertbase.model.Genre;
+import concertbase.model.Artist;
+import concertbase.model.Concert;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ConcertRepository extends CrudRepository<Genre, Long>{
+import java.util.List;
+
+public interface ConcertRepository extends CrudRepository<Concert, Long> {
+    List<Concert> findByPerformances_ArtistIn(List<Artist> artists);
 }

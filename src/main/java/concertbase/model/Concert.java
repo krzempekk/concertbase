@@ -1,6 +1,7 @@
 package concertbase.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public abstract class Concert implements Comparable {
     private String name;
 
     @OneToMany(mappedBy = "concert")
-    private List<Performance> performances;
+    private List<Performance> performances = new ArrayList<>();
 
     public Concert() { }
 

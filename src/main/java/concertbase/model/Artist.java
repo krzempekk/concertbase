@@ -15,10 +15,10 @@ public class Artist {
     @OneToMany(mappedBy = "artist")
     private List<Performance> performances;
 
-    @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "artists")
     private List<Member> members = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "artists", cascade=CascadeType.ALL)
     private List<Subgenre> subgenres = new ArrayList<>();
 
     public Artist() {};

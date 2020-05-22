@@ -1,5 +1,13 @@
 package concertbase;
 
+import concertbase.model.Artist;
+import concertbase.model.Genre;
+import concertbase.model.Member;
+import concertbase.model.Subgenre;
+import concertbase.persistence.ArtistRepository;
+import concertbase.persistence.GenreRepository;
+import concertbase.persistence.SubgenreRepository;
+import concertbase.service.ArtistService;
 import concertbase.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +43,33 @@ public class ConcertbaseApplication {
 //	}
 
 	@Bean
-	public CommandLineRunner demo(GenreService genreService) {
+	public CommandLineRunner demo(
+			GenreService genreService,
+			ArtistService artistService,
+			ArtistRepository artistRepository,
+			GenreRepository genreRepository,
+			SubgenreRepository subgenreRepository
+	) {
 		return args -> {
+
+
+			genreService.addGenre("Metal");
+			genreService.addSubgenre("Doom metal", "Metal");
+			genreService.addSubgenre("Gothic metal", "Metal");
+			genreService.addSubgenre("Stoner metal", "Metal");
+
+			artistService.addArtist("Candlemass", "Doom metal");
+			artistService.addArtist("Paradise Lost", new String[] {"Gothic metal", "Doom metal"});
+			artistService.addArtist("Elephant Tree", "Stoner metal");
+
+			log.info("Searching for doom metal artists...");
+			for(Artist artist: artistRepository.findAllBySubgenres_Name("Doom metal")) {
+				log.info(artist.getName());
+			}
+
+
+//			Subgenre subgenre = new Subgenre("Doom metal");
+//			artistRepository.findAllBySubgenresContains_Name(subgenre);
 
 //			genreService.addSubgenre("Speed metal", "Heavy metal");
 
