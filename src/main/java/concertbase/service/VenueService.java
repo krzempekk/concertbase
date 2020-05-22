@@ -13,7 +13,6 @@ public class VenueService {
     @Autowired
     VenueRepository venueRepository;
 
-
     public void addVenue(String name, String country, String city, String street, int streetNumber, String zipCode){
         this.venueRepository.save(new Venue(name, country, city, street, streetNumber, zipCode));
     }
