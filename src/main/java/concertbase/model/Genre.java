@@ -1,4 +1,4 @@
-package concertbase;
+package concertbase.model;
 
 import javax.persistence.*;
 
