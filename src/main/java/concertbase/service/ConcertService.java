@@ -1,9 +1,6 @@
 package concertbase.service;
 
-import concertbase.model.Artist;
-import concertbase.model.LiveConcert;
-import concertbase.model.StreamedConcert;
-import concertbase.model.Venue;
+import concertbase.model.*;
 import concertbase.persistence.ArtistRepository;
 import concertbase.persistence.ConcertRepository;
 import concertbase.persistence.LiveConcertRepository;
@@ -42,6 +39,10 @@ public class ConcertService {
 
     public void findConcertByGenre(String subgenreName) {
         List<Artist> artistList = artistRepository.findAllBySubgenres_Name(subgenreName);
+        System.out.println("Concerts with subgenre " + subgenreName + ":");
+        for(Concert concert: concertRepository.findByPerformances_ArtistIn(artistList)) {
+            System.out.println(concert.getName());
+        }
     }
 
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,13 +1,12 @@
 package concertbase;
 
-import concertbase.model.Artist;
-import concertbase.model.Genre;
-import concertbase.model.Member;
-import concertbase.model.Subgenre;
+import concertbase.model.*;
 import concertbase.persistence.ArtistRepository;
+import concertbase.persistence.ConcertRepository;
 import concertbase.persistence.GenreRepository;
 import concertbase.persistence.SubgenreRepository;
 import concertbase.service.ArtistService;
+import concertbase.service.ConcertService;
 import concertbase.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import java.text.SimpleDateFormat;
 
 
 @SpringBootApplication
@@ -46,13 +47,13 @@ public class ConcertbaseApplication {
 	public CommandLineRunner demo(
 			GenreService genreService,
 			ArtistService artistService,
+			ConcertService concertService,
 			ArtistRepository artistRepository,
 			GenreRepository genreRepository,
-			SubgenreRepository subgenreRepository
+			SubgenreRepository subgenreRepository,
+			ConcertRepository concertRepository
 	) {
 		return args -> {
-
-
 			genreService.addGenre("Metal");
 			genreService.addSubgenre("Doom metal", "Metal");
 			genreService.addSubgenre("Gothic metal", "Metal");
@@ -62,10 +63,19 @@ public class ConcertbaseApplication {
 			artistService.addArtist("Paradise Lost", new String[] {"Gothic metal", "Doom metal"});
 			artistService.addArtist("Elephant Tree", "Stoner metal");
 
-			log.info("Searching for doom metal artists...");
-			for(Artist artist: artistRepository.findAllBySubgenres_Name("Doom metal")) {
-				log.info(artist.getName());
-			}
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+			LiveConcert concert = new LiveConcert("Blood Fire Death", formatter.parse("02-04-2005"), "knockout.jp2", null);
+			concertRepository.save(concert);
+
+			artistService.addPerformance("Paradise Lost", "Blood Fire Death");
+
+//			log.info("Searching for doom metal artists...");
+//			for(Artist artist: artistRepository.findAllBySubgenres_Name("Doom metal")) {
+//				log.info(artist.getName());
+//			}
+
+			concertService.findConcertByGenre("Gothic metal");
 
 
 //			Subgenre subgenre = new Subgenre("Doom metal");
