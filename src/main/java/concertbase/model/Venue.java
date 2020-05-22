@@ -17,14 +17,16 @@ public class Venue {
 
     private String name;
     private String country;
+    private String city;
     private String street;
     private int streetNumber;
     private String zipCode;
 
     public Venue() { }
 
-    public Venue(String name, String country, String street, int streetNumber, String zipCode){
+    public Venue(String name, String country, String city, String street, int streetNumber, String zipCode){
         this.name = name;
+        this.city = city;
         this.country = country;
         this.street = street;
         this.streetNumber = streetNumber;
@@ -70,6 +72,14 @@ public class Venue {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 //    public void addLiveConcert(LiveConcert liveConcert){
