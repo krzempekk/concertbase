@@ -68,7 +68,10 @@ public class ConcertbaseApplication {
 			LiveConcert concert = new LiveConcert("Blood Fire Death", formatter.parse("02-04-2005"), "knockout.jp2", null);
 			concertRepository.save(concert);
 
-			artistService.addPerformance("Paradise Lost", "Blood Fire Death");
+			artistService.addPerformance("Candlemass", "Blood Fire Death");
+			artistService.addPerformance("Elephant Tree", "Blood Fire Death");
+
+
 
 //			log.info("Searching for doom metal artists...");
 //			for(Artist artist: artistRepository.findAllBySubgenres_Name("Doom metal")) {
