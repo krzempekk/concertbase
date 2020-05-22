@@ -1,0 +1,82 @@
+:root{
+    --color1: #202C39;
+    --color2: #283845;
+    --color3: #F2D492;
+    --color4: #E0FBFC;
+    --color5: #C2DFE3;
+
+    --white: #FEFEFE;
+    --black: #232323;
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+}
+
+.page{
+    width: 100%;
+    min-height: 100vh;
+    background: var(--color2);
+}
+
+.page:nth-child(2n){
+    background: var(--color1);
+}
+
+.page:first-of-type{
+    overflow-x: hidden;
+}
+
+.mainTitle{
+    position: relative;
+    background: var(--color3);
+
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 25vh;
+
+    transform-origin: left bottom;
+    transform: skewY(-7deg);
+
+    z-index: 500;
+}
+
+.mainTitle > .actualTitle{
+    padding-left: 10vw;
+    padding-right: 10vw;
+    transform: skewY(7deg);
+    bottom: -12vh;
+    position: relative;
+    display: inline list-item;
+    font-size: 49px;
+}
+
+.bigVideoPlayer{
+    height: 40vh;
+    margin-left: 20vw;
+    top: 25vh;
+    background: yellow;
+}
+
+.bigVideoPlayer > iframe{
+    height: 36vh;
+    width: 64vh;
+}
+
+.bigVideoPlayer > .shortTitle{
+    font-size: 2vh;
+    padding: 1vh;
+    max-width: 62vh;
+}

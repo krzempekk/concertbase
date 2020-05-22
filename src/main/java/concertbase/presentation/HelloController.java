@@ -46,4 +46,12 @@ public class HelloController {
         return "concerts";
     }
 
+
+    @GetMapping("/test")
+    public String test_base(
+
+    ){
+        return "base";
+    }
+
 }
