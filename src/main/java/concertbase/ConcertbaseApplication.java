@@ -41,7 +41,7 @@ public class ConcertbaseApplication {
 	@Bean
 	public CommandLineRunner demo(GenreService genreService) {
 		return args -> {
-
+			genreService.addGenre("Heavy metal");
 			genreService.addSubgenre("Speed metal", "Heavy metal");
 
 //			genreRepository.save(new Genre("Black metal"));
