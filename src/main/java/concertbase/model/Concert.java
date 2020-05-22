@@ -2,6 +2,7 @@ package concertbase.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -15,6 +16,9 @@ public abstract class Concert implements Comparable {
     private String organizerWebsite;
 
     private String name;
+
+    @OneToMany(mappedBy = "concert")
+    private List<Performance> performances;
 
     public Concert() { }
 

@@ -3,7 +3,7 @@ package concertbase.service;
 import concertbase.model.Genre;
 import concertbase.model.Subgenre;
 import concertbase.persistence.GenreRepository;
-import concertbase.persistence.SubgenreRespository;
+import concertbase.persistence.SubgenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class GenreService {
     GenreRepository genreRepository;
 
     @Autowired
-    SubgenreRespository subgenreRespository;
+    SubgenreRepository subgenreRepository;
 
     public void addGenre(String name) {
         genreRepository.save(new Genre(name));
@@ -24,7 +24,7 @@ public class GenreService {
     public void addSubgenre(String name, String genreName) {
         Genre genre = genreRepository.findByName(genreName).get(0);
         Subgenre subgenre = new Subgenre(name);
-        subgenreRespository.save(subgenre);
+        subgenreRepository.save(subgenre);
         subgenre.setGenre(genre);
     }
 }

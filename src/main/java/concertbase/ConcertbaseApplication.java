@@ -3,7 +3,7 @@ package concertbase;
 import concertbase.model.Genre;
 import concertbase.model.Subgenre;
 import concertbase.persistence.GenreRepository;
-import concertbase.persistence.SubgenreRespository;
+import concertbase.persistence.SubgenreRepository;
 import concertbase.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

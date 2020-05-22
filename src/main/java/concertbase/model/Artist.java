@@ -12,6 +12,9 @@ public class Artist {
 
     private String name;
 
+    @OneToMany(mappedBy = "artist")
+    private List<Performance> performances;
+
     @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
     private List<Member> members = new ArrayList<>();;
 
