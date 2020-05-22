@@ -1,14 +1,15 @@
 package concertbase.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
 public class LiveConcert extends Concert {
 
-
-    @OneToMany
+    @ManyToOne
+    @JoinColumn(name = "VENUE_FK")
     private Venue venue;
 
     public LiveConcert() {}

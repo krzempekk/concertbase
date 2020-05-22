@@ -10,8 +10,10 @@ public class Venue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    private SortedSet<LiveConcert> liveConcerts = new TreeSet<>();
+
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.PERSIST)
+    @OrderBy("date DESC")
+    private SortedSet<LiveConcert> liveConcerts = new TreeSet<LiveConcert>();
 
     private String name;
     private String country;
@@ -70,11 +72,11 @@ public class Venue {
         this.zipCode = zipCode;
     }
 
-    public void addLiveConcert(LiveConcert liveConcert){
-        this.liveConcerts.add(liveConcert);
-    }
-
-    public void removeLiveConcert(LiveConcert liveConcert){
-        this.liveConcerts.remove(liveConcert);
-    }
+//    public void addLiveConcert(LiveConcert liveConcert){
+//        this.liveConcerts.add(liveConcert);
+//    }
+//
+//    public void removeLiveConcert(LiveConcert liveConcert){
+//        this.liveConcerts.remove(liveConcert);
+//    }
 }

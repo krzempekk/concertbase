@@ -11,13 +11,14 @@ public class Subgenre {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="GENRE_FK")
+//    @JoinColumn(name="GENRE_FK")
     private Genre genre;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Artist> artists;
 
     public Subgenre() {}
+
 
     public Subgenre(String name){
         this.name = name;

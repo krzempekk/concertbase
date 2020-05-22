@@ -16,7 +16,7 @@ public class Artist {
     private List<Performance> performances;
 
     @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
-    private List<Member> members = new ArrayList<>();;
+    private List<Member> members = new ArrayList<>();
 
     @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
     private List<Subgenre> subgenres = new ArrayList<>();

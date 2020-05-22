@@ -1,9 +1,5 @@
 package concertbase;
 
-import concertbase.model.Genre;
-import concertbase.model.Subgenre;
-import concertbase.persistence.GenreRepository;
-import concertbase.persistence.SubgenreRepository;
 import concertbase.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +38,7 @@ public class ConcertbaseApplication {
 	public CommandLineRunner demo(GenreService genreService) {
 		return args -> {
 
-			genreService.addSubgenre("Speed metal", "Heavy metal");
+//			genreService.addSubgenre("Speed metal", "Heavy metal");
 
 //			genreRepository.save(new Genre("Black metal"));
 //			repository.save(new Genre("Death metal"));
