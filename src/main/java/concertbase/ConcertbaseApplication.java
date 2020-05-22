@@ -42,7 +42,7 @@ public class ConcertbaseApplication {
 	public CommandLineRunner demo(GenreService genreService) {
 		return args -> {
 
-			genreService.addSubgenre("Speed metal", "Heavy metal");
+//			genreService.addSubgenre("Speed metal", "Heavy metal");
 
 //			genreRepository.save(new Genre("Black metal"));
 //			repository.save(new Genre("Death metal"));

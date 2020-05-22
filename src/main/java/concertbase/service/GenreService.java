@@ -21,10 +21,19 @@ public class GenreService {
         genreRepository.save(new Genre(name));
     }
 
-    public void addSubgenre(String name, String genreName) {
-        Genre genre = genreRepository.findByName(genreName).get(0);
+    private void addSubgenre(String name, Genre genre) {
         Subgenre subgenre = new Subgenre(name);
         subgenreRepository.save(subgenre);
         subgenre.setGenre(genre);
+    }
+
+    public void addSubgenre(String name, long genreId) {
+        Genre genre = genreRepository.findById(genreId);
+        addSubgenre(name, genre);
+    }
+
+    public void addSubgenre(String name, String genreName) {
+        Genre genre = genreRepository.findByName(genreName).get(0);
+        addSubgenre(name, genre);
     }
 }
