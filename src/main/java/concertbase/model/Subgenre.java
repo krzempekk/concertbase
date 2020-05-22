@@ -1,8 +1,7 @@
 package concertbase.model;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Subgenre {
@@ -12,15 +11,18 @@ public class Subgenre {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="GENRE_FK")
+//    @JoinColumn(name="GENRE_FK")
     private Genre genre;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private List<Artist> artists;
+
     public Subgenre() {}
+
 
     public Subgenre(String name){
         this.name = name;
     }
-
 
     public String getName() {
         return name;
@@ -34,11 +36,20 @@ public class Subgenre {
         return genre;
     }
 
-
     public void setGenre(Genre genre) {
         this.genre = genre;
         if(!this.genre.getSubgenres().contains(this))
             this.genre.addSubgenre(this);
     }
 
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void addArtist(Artist artist) {
+        if(!this.artists.contains(artist)) {
+            this.artists.add(artist);
+            artist.addSubgenre(this);
+        }
+    }
 }

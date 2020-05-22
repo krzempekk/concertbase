@@ -1,7 +1,5 @@
 package concertbase.model;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +9,10 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String name;
 
-    @OneToMany(mappedBy="genre")
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Subgenre> subgenres = new ArrayList<>();
 
     public Genre() {}
@@ -32,6 +31,5 @@ public class Genre {
 
     public void addSubgenre(Subgenre subgenre){
         this.subgenres.add(subgenre);
-
     }
 }
