@@ -14,10 +14,29 @@
             Concertbase
         </div>
     </div>
-    <div class="bigVideoPlayer">
-        <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <div class="shortTitle">Filmik</div>
+    <div class="videoPlayers">
+        <div class="bigVideoPlayer">
+            <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="shortTitle">Filmik</div>
+        </div>
+        <div class="normalVideoPlayer">
+            <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="shortTitle">Filmik</div>
+        </div>
+        <div class="normalVideoPlayer">
+            <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="shortTitle">Filmik</div>
+        </div>
+        <div class="normalVideoPlayer">
+            <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="shortTitle">Filmik</div>
+        </div>
+        <div class="normalVideoPlayer">
+            <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="shortTitle">Filmik</div>
+        </div>
     </div>
+
 </div>
 
 
@@ -31,5 +50,22 @@
 
 
 
+
+
+<script type="text/javascript">
+    function removeTransition(element){
+        element.style.transition = null;
+    }
+
+    function changePosition(element){
+        element.style.left = "20vw";
+    }
+
+    window.onload = function() {
+        element = document.getElementsByClassName("videoPlayers")[0];
+        setTimeout(changePosition(element), 5000);
+        setTimeout(removeTransition(element), 10000);
+    };
+</script>
 </body>
 </html>

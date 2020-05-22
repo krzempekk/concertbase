@@ -63,20 +63,107 @@ body{
     font-size: 49px;
 }
 
+.videoPlayers{
+    height: 40vh;
+    position: relative;
+    left: 90vw;
+    top: 0vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    transition: left 2s;
+    background: transparent;
+}
+
 .bigVideoPlayer{
     height: 40vh;
-    margin-left: 20vw;
+    /*margin-left: 20vw;
     top: 25vh;
-    background: yellow;
+    background: yellow;*/
 }
 
 .bigVideoPlayer > iframe{
     height: 36vh;
     width: 64vh;
+    display: block;
 }
 
 .bigVideoPlayer > .shortTitle{
     font-size: 2vh;
     padding: 1vh;
     max-width: 62vh;
+}
+
+
+.normalVideoPlayer{
+    margin-left: 2.5vh;
+}
+
+.normalVideoPlayer > iframe{
+    height: 18vh;
+    width: 32vh;
+    display: block;
+}
+
+.normalVideoPlayer > .shortTitle{
+    font-size: 2vh;
+    padding: 0.5vh;
+    max-width: 31vh;
+}
+
+
+.bigVideoPlayer:before{
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 64vh;
+    height: 10px;
+    background: var(--color3);
+    transform-origin: bottom;
+    transform: skewX(-45deg);
+}
+
+.bigVideoPlayer:after{
+    content: '';
+    position: absolute;
+
+    left: 64vh;
+    width: 10px;
+    bottom: 0;
+    height: 40vh;
+    background: var(--color3);
+    transform-origin: left bottom;
+    transform: skewY(-45deg);
+}
+
+
+
+
+.normalVideoPlayer:before{
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 32vh;
+    height: 10px;
+    background: var(--color3);
+    transform-origin: bottom;
+    transform: skewX(-45deg);
+}
+
+.normalVideoPlayer:after{
+    content: '';
+    position: absolute;
+
+    left: 32vh;
+    width: 10px;
+    bottom: 0;
+    height: 22vh;
+    background: var(--color3);
+    transform-origin: left bottom;
+    transform: skewY(-45deg);
 }
