@@ -1,6 +1,6 @@
 package concertbase;
 
-import concertbase.service.GenreService;
+import concertbase.service.ConcertService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -35,9 +35,16 @@ public class ConcertbaseApplication {
 //	}
 
 	@Bean
-	public CommandLineRunner demo(GenreService genreService) {
+	public CommandLineRunner demo(ConcertService service) {
 		return args -> {
 
+//			venueService.addVenue("Studio", "Polska", "Kraków", "Witolda Burdyka", 1, "666-666");
+			try{
+				service.addLiveConcert("Metal chaos", "2020-12-12", "knockout.pl", "Studio", "Kraków");
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 //			genreService.addSubgenre("Speed metal", "Heavy metal");
 
 //			genreRepository.save(new Genre("Black metal"));
