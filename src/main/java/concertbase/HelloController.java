@@ -2,10 +2,7 @@ package concertbase;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloController {
@@ -15,12 +12,34 @@ public class HelloController {
 //        return "Greetings from Spring Boot!";
 //    }
 
+//    @GetMapping("/concerts")
+//    public String concerts(
+//        @RequestParam(name = "band", required = false) String band,
+//        Model model
+//    ) {
+//        model.addAttribute("band", band);
+//        model.addAttribute("another", "some random string");
+//        model.addAttribute("genre", new Genre());
+//        return "concerts";
+//    }
+
     @GetMapping("/concerts")
     public String concerts(
-            @RequestParam(name = "band", required = false) String band,
-            Model model
-            ) {
-        model.addAttribute("band", band);
+        Model model
+    ) {
+        String[] genres = {"Heavy metal", "Thrash metal", "Black metal"};
+        model.addAttribute("genres", genres);
+        model.addAttribute("genre", new Genre());
+
+
+
+        return "concerts";
+    }
+
+    @PostMapping("/concerts")
+    public String concertsSubmit(
+        @ModelAttribute Genre genre
+    ) {
         return "concerts";
     }
 

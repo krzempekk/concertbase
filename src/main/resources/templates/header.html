@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">ConcertApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Upcoming concerts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Find concert</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="add-dropdown" data-toggle="dropdown">Add</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Concert</a>
+                        <a class="dropdown-item" href="#">Band</a>
+                        <a class="dropdown-item" href="#">Place</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

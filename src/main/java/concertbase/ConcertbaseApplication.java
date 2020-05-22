@@ -36,10 +36,10 @@ public class ConcertbaseApplication {
 	@Bean
 	public CommandLineRunner demo(GenreRepository repository) {
 		return args -> {
-			repository.save(new Genre("Black metal"));
-			repository.save(new Genre("Death metal"));
-			repository.save(new Genre("Melodic death metal"));
-			repository.save(new Genre("Vegetarian progressive grindcore"));
+//			repository.save(new Genre("Black metal"));
+//			repository.save(new Genre("Death metal"));
+//			repository.save(new Genre("Melodic death metal"));
+//			repository.save(new Genre("Vegetarian progressive grindcore"));
 
 			log.info("Genres found using findAll():");
 			log.info("-------------------------------");
