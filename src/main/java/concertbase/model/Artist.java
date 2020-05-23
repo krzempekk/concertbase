@@ -13,7 +13,7 @@ public class Artist {
     private String name;
 
     @OneToMany(mappedBy = "artist")
-    private List<Performance> performances;
+    private List<Performance> performances = new ArrayList<>();
 
 //    @ManyToMany(mappedBy = "artists")
 //    private List<Member> members = new ArrayList<>();
