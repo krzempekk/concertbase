@@ -7,10 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -52,7 +49,7 @@ public class ConcertService {
         }
     }
 
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public void addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
         Venue venue = this.venueRepository.findByNameAndCity(venueName, city).get(0);
@@ -69,15 +66,15 @@ public class ConcertService {
     }
 
 
-    public List<Concert> findByLiveByCriteria(Artist artist, String subgenreName, String city, String dateFrom, String dateTo){
+    public List<Concert> findByLiveByCriteria(String artistName, String subgenreName, String city, String dateFrom, String dateTo) {
         return concertRepository.findAll(new Specification<>() {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = new ArrayList<Predicate>();
+                List<Predicate> predicates = new ArrayList<>();
 
-                if(artist != null) {
-                    List<Long> artistPerformancesIds = performanceRepository.findByArtist(artist)
+                if(artistName != null) {
+                    List<Long> artistPerformancesIds = performanceRepository.findByArtist_Name(artistName)
                         .stream()
                         .map(performance -> performance.getConcert().getId())
                         .collect(Collectors.toList());
@@ -87,9 +84,9 @@ public class ConcertService {
                 if(dateFrom != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateAfter(parseDate(dateFrom))
-                                .stream()
-                                .map(Concert::getId)
-                                .collect(Collectors.toList());
+                            .stream()
+                            .map(Concert::getId)
+                            .collect(Collectors.toList());
 
                         predicates.add(root.get("id").in(concertIds));
                     } catch (ParseException e) {
@@ -99,15 +96,16 @@ public class ConcertService {
                 if(dateTo != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateBefore(parseDate(dateTo))
-                                .stream()
-                                .map(Concert::getId)
-                                .collect(Collectors.toList());
+                            .stream()
+                            .map(Concert::getId)
+                            .collect(Collectors.toList());
 
                         predicates.add(root.get("id").in(concertIds));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }
+
                 if(subgenreName != null){
                     Subgenre subgenre = subgenreRepository.findByName(subgenreName);
                     List<Artist> subgenreArtists = artistRepository.findBySubgenresContains(subgenre);
@@ -121,6 +119,7 @@ public class ConcertService {
                             .collect(Collectors.toList());
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
+
                 if(city != null){
                     Root newRoot = criteriaBuilder.treat(root, LiveConcert.class);
                     List<Venue> cityVenues = venueRepository.findByCity(city);
@@ -128,14 +127,12 @@ public class ConcertService {
                     cityVenues.forEach(System.out::println);
                     predicates.add(newRoot.get("venue").in(cityVenues));
                 }
-                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 
+                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
             }
 
         });
     }
-
-
 
 
 }

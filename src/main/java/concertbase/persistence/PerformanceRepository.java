@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface PerformanceRepository extends CrudRepository<Performance, Long> {
     List<Performance> findByArtist(Artist artist);
+
+    List<Performance> findByArtist_Name(String artistName);
 }
