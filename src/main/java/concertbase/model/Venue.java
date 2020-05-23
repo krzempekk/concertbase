@@ -85,8 +85,13 @@ public class Venue {
         return (int) this.id * 2137 + this.streetNumber;
     }
 
-    public void addLiveConcert(LiveConcert liveConcert){
+    public void addLiveConcert(LiveConcert liveConcert) {
         this.liveConcerts.add(liveConcert);
+        liveConcert.setVenue(this);
+    }
+
+    public SortedSet<LiveConcert> getConcerts(){
+        return this.liveConcerts;
     }
 
 //    public void removeLiveConcert(LiveConcert liveConcert){

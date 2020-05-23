@@ -17,6 +17,8 @@ public class LiveConcert extends Concert {
     public LiveConcert(String name, Date date, String organizerWebsite, Venue venue){
         super(name, date, organizerWebsite);
         this.venue = venue;
+        if(!venue.getConcerts().contains(this))
+            venue.addLiveConcert(this);
     }
 
     public Venue getVenue(){
@@ -25,6 +27,8 @@ public class LiveConcert extends Concert {
 
     public void setVenue(Venue venue){
         this.venue = venue;
+        if(!venue.getConcerts().contains(this))
+            venue.addLiveConcert(this);
     }
 
 

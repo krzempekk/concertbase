@@ -59,8 +59,6 @@ public class ConcertService {
     public LiveConcert addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
         Venue venue = this.venueRepository.findByNameAndCity(venueName, city);
         LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
-//        venue.addLiveConcert(liveConcert);
-//        venueRepository.save(venue);
         liveConcertRepository.save(liveConcert);
         return liveConcert;
     }
@@ -72,9 +70,7 @@ public class ConcertService {
         Venue venue = optVenue.get();
 
         LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
-        venue.addLiveConcert(liveConcert);
         liveConcertRepository.save(liveConcert);
-        venueRepository.save(venue);
         return liveConcert;
     }
 
@@ -165,6 +161,10 @@ public class ConcertService {
             }
 
         });
+    }
+
+    public void printVenueConcerts(){
+
     }
 
     public Concert findByName(String name){ return this.concertRepository.findByName(name); }

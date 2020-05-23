@@ -27,8 +27,8 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        venueService.addVenue("Studio","Krakow","Witolda Budryka", 4, "30-072");
-        venueService.addVenue("Zaścianek","Krakow","Stanisława Skarżyńskiego", 1, "31-866");
+        venueService.addVenue("Studio","Kraków","Witolda Budryka", 4, "30-072");
+        venueService.addVenue("Zaścianek","Kraków","Stanisława Skarżyńskiego", 1, "31-866");
         venueService.addVenue("Progresja","Warszawa","Fort Wola", 22, "01-258");
         venueService.addVenue("Spodek","Katowice","aleja Korfantego", 35, "40-005");
 
