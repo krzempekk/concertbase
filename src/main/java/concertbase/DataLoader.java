@@ -1,5 +1,6 @@
 package concertbase;
 
+import concertbase.model.Concert;
 import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
 import concertbase.service.GenreService;
@@ -56,15 +57,22 @@ public class DataLoader implements ApplicationRunner {
         artistService.addArtist("Lucy Rose", "acoustic pop");
 
 
-        concertService.addLiveConcert("State of unrest tour", "2021-04-02", "https://www.knockoutprod.net/", "Studio", "Kraków");
-        concertService.addLiveConcert("Ayreon Universe", "2021-01-20", "https://www.knockoutprod.net/", "Progresja", "Warszawa");
-        concertService.addLiveConcert("Bloodbath world tour", "2021-03-03", "https://www.knockoutprod.net/", "Spodek", "Katowice");
+        Concert concert1 = concertService.addLiveConcert("State of unrest tour", "2021-04-02", "https://www.knockoutprod.net/", "Studio", "Kraków");
+        Concert concert2 =  concertService.addLiveConcert("Ayreon Universe", "2021-01-20", "https://www.knockoutprod.net/", "Progresja", "Warszawa");
+        Concert concert3 = concertService.addLiveConcert("Bloodbath world tour", "2021-03-03", "https://www.knockoutprod.net/", "Spodek", "Katowice");
 
 
-        concertService.addStreamedConcert("Lucy Rose stream", "2020-07-03", "https://www.knockoutprod.net/", "https://www.facebook.com/");
-        concertService.addStreamedConcert("Panihida live", "2020-06-06", "https://www.knockoutprod.net/", "https://www.facebook.com/");
+        Concert concert4 = concertService.addStreamedConcert("Lucy Rose stream", "2020-07-03", "https://www.knockoutprod.net/", "https://www.facebook.com/");
+        Concert concert5 = concertService.addStreamedConcert("Panihida live", "2020-06-06", "https://www.knockoutprod.net/", "https://www.facebook.com/");
 
 
+        artistService.addPerformance("Kreator", concert1.getId());
+        artistService.addPerformance("Lamb of God", concert1.getId());
+        artistService.addPerformance("Ayreon", concert2.getId());
+        artistService.addPerformance("Bloodbath", concert3.getId());
+
+        artistService.addPerformance("Lucy Rose", concert4.getId());
+        artistService.addPerformance("Batushka", concert5.getId());
 
     }
 }

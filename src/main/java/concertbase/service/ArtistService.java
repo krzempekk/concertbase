@@ -1,14 +1,19 @@
 package concertbase.service;
 
 import concertbase.model.Artist;
+import concertbase.model.Concert;
 import concertbase.model.Performance;
 import concertbase.model.Subgenre;
-import concertbase.persistence.*;
+import concertbase.persistence.ArtistRepository;
+import concertbase.persistence.ConcertRepository;
+import concertbase.persistence.PerformanceRepository;
+import concertbase.persistence.SubgenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -44,22 +49,23 @@ public class ArtistService {
         return artist;
     }
 
-    public Performance addPerformance(String artistName, String concertName) {
-        Performance performance = new Performance(artistRepository.findByName(artistName), concertRepository.findByName(concertName), "headliner", null, null);
-
+    public Performance addPerformance(String artistName, long concertId, String role, String startTime, String endTime){
+        Optional<Concert> concertOpt = concertRepository.findById(concertId);
+        if(concertOpt.isEmpty()) throw new IllegalArgumentException("No such concert");
+        Concert concert = concertOpt.get();
+        Performance performance = new Performance(artistRepository.findByName(artistName), concert, role, LocalTime.parse(startTime), LocalTime.parse(endTime));
         performanceRepository.save(performance);
         return performance;
     }
 
-    public Performance addPerformance(String artistName, String concertName, String startTime, String endTime) {
-        Performance performance = new Performance(artistRepository.findByName(artistName), concertRepository.findByName(concertName), "headliner", LocalTime.parse(startTime), LocalTime.parse(endTime));
+    public Performance addPerformance(String artistName, long concertId){
+        Optional<Concert> concertOpt = concertRepository.findById(concertId);
+        if(concertOpt.isEmpty()) throw new IllegalArgumentException("No such concert");
+        Concert concert = concertOpt.get();
+        Performance performance = new Performance(artistRepository.findByName(artistName), concert, "headliner", null, null);
         performanceRepository.save(performance);
         return performance;
     }
-
-
-
-
 
 
 }
