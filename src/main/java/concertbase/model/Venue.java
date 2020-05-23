@@ -16,7 +16,6 @@ public class Venue {
     private SortedSet<LiveConcert> liveConcerts = new TreeSet<LiveConcert>();
 
     private String name;
-    private String country;
     private String city;
     private String street;
     private int streetNumber;
@@ -24,14 +23,12 @@ public class Venue {
 
     public Venue() { }
 
-    public Venue(String name, String country, String city, String street, int streetNumber, String zipCode){
+    public Venue(String name, String city, String street, int streetNumber, String zipCode){
         this.name = name;
         this.city = city;
-        this.country = country;
         this.street = street;
         this.streetNumber = streetNumber;
         this.zipCode = zipCode;
-
     }
 
     public String getName() {
@@ -40,14 +37,6 @@ public class Venue {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getStreet() {

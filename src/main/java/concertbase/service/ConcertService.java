@@ -55,13 +55,17 @@ public class ConcertService {
 
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    public void addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
-        Venue venue = this.venueRepository.findByNameAndCity(venueName, city).get(0);
-        liveConcertRepository.save(new LiveConcert(name, parseDate(date), organizerWebsite, venue));
+    public LiveConcert addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
+        Venue venue = this.venueRepository.findByNameAndCity(venueName, city);
+        LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
+        liveConcertRepository.save(liveConcert);
+        return liveConcert;
     }
 
-    public void addStreamedConcert(String name, String date, String organizerWebsite, String website) throws ParseException {
-        streamedConcertRepository.save(new StreamedConcert(name, parseDate(date), organizerWebsite, website));
+    public StreamedConcert addStreamedConcert(String name, String date, String organizerWebsite, String website) throws ParseException {
+        StreamedConcert streamedConcert = new StreamedConcert(name, parseDate(date), organizerWebsite, website);
+        streamedConcertRepository.save(streamedConcert);
+        return streamedConcert;
     }
 
 

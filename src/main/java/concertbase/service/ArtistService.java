@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
+
 @Service
 @Transactional
 public class ArtistService {
@@ -27,27 +29,40 @@ public class ArtistService {
     ConcertRepository concertRepository;
 
 
-    public void addArtist(String name, String subgenreName) {
+    public Artist addArtist(String name, String subgenreName) {
         Artist artist = new Artist(name);
         Subgenre subgenre = subgenreRepository.findByName(subgenreName);
         artist.addSubgenre(subgenre);
         artistRepository.save(artist);
+        return artist;
     }
 
-    public void addArtist(String name, String[] subgenreNames) {
+    public Artist addArtist(String name, String[] subgenreNames) {
         Artist artist = new Artist(name);
         for(String subgenreName: subgenreNames) {
             Subgenre subgenre = subgenreRepository.findByName(subgenreName);
             artist.addSubgenre(subgenre);
         }
         artistRepository.save(artist);
+        return artist;
     }
 
-    public void addPerformance(String artistName, String concertName) {
+    public Performance addPerformance(String artistName, String concertName) {
         Performance performance = new Performance(artistRepository.findByName(artistName), concertRepository.findByName(concertName), "headliner", null, null);
 
         performanceRepository.save(performance);
+        return performance;
     }
+
+    public Performance addPerformance(String artistName, String concertName, String startTime, String endTime) {
+        Performance performance = new Performance(artistRepository.findByName(artistName), concertRepository.findByName(concertName), "headliner", LocalTime.parse(startTime), LocalTime.parse(endTime));
+        performanceRepository.save(performance);
+        return performance;
+    }
+
+
+
+
 
 
 }
