@@ -143,6 +143,16 @@
 
 
 
+    <div class="queryResult" th:if="${errors.size() > 0}">
+        <div class="searchTitle">Error</div>
+
+        <div class="queriedConcert" th:each="error : ${errors}">
+            <div class="concertTitle" th:text="${error}"/>
+        </div>
+    </div>
+
+
+
 
 </div>
 </body>

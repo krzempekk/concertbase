@@ -151,14 +151,13 @@ public class ApplicationController {
 
         Concert foundConcert = this.concertService.findByName(searchForm.getSearchString());
         if (foundConcert == null){
-            errors.add(String.format("Brak wyników dla zapytania: %s", searchForm.getSearchString() ));
+            errors.add(String.format("No results for: %s", searchForm.getSearchString() ));
             model.addAttribute("results", results);
             model.addAttribute("errors", errors);
             return "index";
         }
 
         results.add(foundConcert);
-
 
         Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
@@ -196,6 +195,8 @@ public class ApplicationController {
             System.out.println("Error: przy zaawansowanym wyszukiwaniu w advancedSearch.html");
         }
 
+        List<String> errors = new ArrayList<>();
+
 
         List<Concert> results;
         try {
@@ -211,17 +212,10 @@ public class ApplicationController {
         catch (Exception e){
             results = new ArrayList<>();
         }
-        
-        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
-        results.add(temp_mockup);
-        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
-        results.add(temp_mockup2);
+
+        if(results.size() == 0) errors.add("No results");
 
 
-
-
-
-        List<String> errors = new ArrayList<>();
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("errors", errors);
         model.addAttribute("results", results);
