@@ -38,7 +38,7 @@ public class ArtistService {
 
     public Artist addArtist(String name, String subgenreName) {
         Artist artist = new Artist(name);
-        Subgenre subgenre = subgenreRepository.findByName(subgenreName);
+        Subgenre subgenre = subgenreRepository.findByNameIgnoreCase(subgenreName);
         artist.addSubgenre(subgenre);
         artistRepository.save(artist);
         return artist;
@@ -47,7 +47,7 @@ public class ArtistService {
     public Artist addArtist(String name, String[] subgenreNames) {
         Artist artist = new Artist(name);
         for(String subgenreName: subgenreNames) {
-            Subgenre subgenre = subgenreRepository.findByName(subgenreName);
+            Subgenre subgenre = subgenreRepository.findByNameIgnoreCase(subgenreName);
             artist.addSubgenre(subgenre);
         }
         artistRepository.save(artist);
