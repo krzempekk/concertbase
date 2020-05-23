@@ -1,6 +1,7 @@
 package concertbase.presentation;
 
 import concertbase.model.Concert;
+import concertbase.model.LiveConcert;
 import concertbase.service.ConcertService;
 import concertbase.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +45,6 @@ public class ApplicationController {
     @Autowired
     VenueService venueService;
 
-    @GetMapping("/concerts")
-    public String concerts(
-//        Model model
-    ) {
-//        String[] genres = {"Heavy metal", "Thrash metal", "Black metal"};
-//        model.addAttribute("genres", genres);
-//        model.addAttribute("genre", new Genre());
-
-        return "concerts";
-    }
 
     @GetMapping("/concerts/add")
     public String addConcertGet(
@@ -70,7 +61,7 @@ public class ApplicationController {
         @Valid ConcertForm concertForm,
         BindingResult bindingResult
     ) {
-        System.out.println(concertForm.getArtistName());
+
         if(bindingResult.hasErrors()) {
             return "concert-add";
         }
@@ -78,18 +69,27 @@ public class ApplicationController {
         return "concerts";
     }
 
-    @PostMapping("/concerts")
-    public String findConcerts(
-        @RequestBody MultiValueMap<String, String> formData,
+    @GetMapping("/concerts/find")
+    public String findConcertsGet(
+        SearchForm searchForm,
         Model model
     ) {
-        String artistName, subgenreName, city, dateFrom, dateTo;
 
-        artistName = formData.getFirst("artist");
-        subgenreName = formData.getFirst("subgenre");
-        city = formData.getFirst("city");
-        dateFrom = formData.getFirst("dateFrom");
-        dateTo = formData.getFirst("dateTo");
+        model.addAttribute("searchForm", searchForm);
+
+        return "concerts";
+    }
+
+    @PostMapping("/concerts/find")
+    public String findConcertsPost(
+        SearchForm searchForm,
+        BindingResult bindingResult,
+        Model model
+    ) {
+
+        if(bindingResult.hasErrors()) {
+            return "concerts";
+        }
 
 //        List<Concert> concerts = concertService.findByLiveByCriteria(artistName, subgenreName, city, dateFrom, dateTo);
 //        model.addAttribute("concerts", concerts);
@@ -103,7 +103,7 @@ public class ApplicationController {
         VerySimpleSearchForm searchForm,
         Model model
     ){
-        ArrayList<String> results = new ArrayList<>();
+        List<Concert> results = new ArrayList<>();
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
         return "index";
@@ -118,15 +118,21 @@ public class ApplicationController {
         if(bindingResult.hasErrors()) {
             System.out.println("Error: przy wyszukiwaniu prostej formy w index.html");
         }
-        searchForm.getSearchString();
-                // TUTAJ ANIA ^
+
+        List<Concert> results = new ArrayList<>();
 
         Concert foundConcert = this.concertService.findByName(searchForm.getSearchString());
-        ArrayList<String> results = new ArrayList<>();
-        results.add("hej");
+        if (foundConcert == null){
+            return "index";
+        }
+        results.add(foundConcert);
+
+        Concert temp_mockup = new LiveConcert();
+        temp_mockup.setName(searchForm.getSearchString());
+        results.add(temp_mockup);
+
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
-
 
         return "index";
     }
