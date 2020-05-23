@@ -68,7 +68,7 @@ public class ConcertService {
     }
 
 
-    public List<Concert> findByLiveByCriteria(Artist artist, Subgenre subgenre, String city, String fromDate, String toDate){
+    public List<Concert> findByLiveByCriteria(Artist artist, Subgenre subgenre, String city, String dateFrom, String dateTo){
         return concertRepository.findAll(new Specification<>() {
 
             @Override
@@ -83,14 +83,6 @@ public class ConcertService {
 
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
-                if(city != null){
-                    Root newRoot = criteriaBuilder.treat(root, LiveConcert.class);
-                    List<Venue> cityVenues = venueRepository.findByCity(city);
-                    System.out.println("Venues");
-                    cityVenues.forEach(System.out::println);
-                    predicates.add(newRoot.get("venue").in(cityVenues));
-                }
-
 
                 if(dateFrom != null) {
                     try {
@@ -117,7 +109,13 @@ public class ConcertService {
                         e.printStackTrace();
                     }
                 }
-
+                if(city != null){
+                    Root newRoot = criteriaBuilder.treat(root, LiveConcert.class);
+                    List<Venue> cityVenues = venueRepository.findByCity(city);
+                    System.out.println("Venues");
+                    cityVenues.forEach(System.out::println);
+                    predicates.add(newRoot.get("venue").in(cityVenues));
+                }
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 
 //                List<Predicate> predicates = new ArrayList<>();
