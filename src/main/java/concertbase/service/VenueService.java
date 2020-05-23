@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class VenueService {
@@ -27,4 +25,9 @@ public class VenueService {
         return this.venueRepository.findAll();
     }
 
+
+    public void printVenueConcerts(String name, String city){
+        Venue venue = this.venueRepository.findByNameAndCity(name, city);
+        venue.getConcerts().forEach(System.out::println);
+    }
 }
