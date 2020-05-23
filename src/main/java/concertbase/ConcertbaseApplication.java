@@ -67,12 +67,18 @@ public class ConcertbaseApplication {
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-			LiveConcert concert = new LiveConcert("Blood Fire Death", formatter.parse("02-04-2005"), "knockout.jp2", null);
+			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("10-06-2005"), "knockout.jp2", null);
+			concertRepository.save(concert);
+			concert = new LiveConcert("State of Unrest", formatter.parse("02-04-2020"), "knockout.jp2", null);
+			concertRepository.save(concert);
+			concert = new LiveConcert("Panihida Tour", formatter.parse("13-03-2020"), "knockout.jp2", null);
 			concertRepository.save(concert);
 
-			artistService.addPerformance("Candlemass", "Blood Fire Death");
-			artistService.addPerformance("Elephant Tree", "Blood Fire Death");
-
+			artistService.addPerformance("Candlemass", "Mystic Festival");
+			artistService.addPerformance("Elephant Tree", "Mystic Festival");
+			artistService.addPerformance("Paradise Lost", "Mystic Festival");
+			artistService.addPerformance("Elephant Tree", "Panihida Tour");
+			artistService.addPerformance("Paradise Lost", "State of Unrest");
 
 
 //			log.info("Searching for doom metal artists...");
@@ -81,16 +87,20 @@ public class ConcertbaseApplication {
 //			}
 
 //			concertService.findConcertByGenre("Gothic metal");
-			Artist searchedArtist = artistRepository.findByName("Paradise Lost");
+			Artist searchedArtist = artistRepository.findByName("Elephant Tree");
 			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
-			if(performances!= null){
+			if(performances!= null) {
 				System.out.println("Performances:");
 				performances.forEach(System.out::println);
 			}
-			System.out.println("Concerts with artist " + searchedArtist.getName());
+
 			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, null, null, null);
-			if(foundconcerts!=null)
+			System.out.println("Concerts with artist " + searchedArtist.getName());
+			if(foundconcerts != null) {
 				foundconcerts.forEach(System.out::println);
+			} else {
+				System.out.println("No concerts found :(");
+			}
 
 //			Subgenre subgenre = new Subgenre("Doom metal");
 //			artistRepository.findAllBySubgenresContains_Name(subgenre);

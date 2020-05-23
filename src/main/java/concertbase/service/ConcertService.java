@@ -70,24 +70,36 @@ public class ConcertService {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-//                List<Predicate> predicates = new ArrayList<>();
-                List<String> artistPerformancesIds = null;
-                if (artist != null) {
-                    List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
-                    artistPerformances.forEach(System.out::println);
+                CriteriaBuilder.In<Long> inClause = criteriaBuilder.in(root.get("id"));
 
-                    artistPerformancesIds = artistPerformances
-                            .stream()
-                            .map(performance -> String.valueOf(performance.getConcert().getId()))
-                            .collect(Collectors.toList());
+                List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
+                artistPerformances.forEach(System.out::println);
+
+                for(Performance performance: artistPerformances) {
+                    inClause.value(performance.getConcert().getId());
+                }
+
+                return inClause;
+
+
+//                List<Predicate> predicates = new ArrayList<>();
+//                List<String> artistPerformancesIds = null;
+//                if (artist != null) {
+//                    List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
+//                    artistPerformances.forEach(System.out::println);
+//
+//                    artistPerformancesIds = artistPerformances
+//                            .stream()
+//                            .map(performance -> String.valueOf(performance.getConcert().getId()))
+//                            .collect(Collectors.toList());
 
 //                    if (artistPerformances != null) {
 //                        for (Performance performance : artistPerformances) {
 //                            predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), performance.getConcert().getId())));
 //                        }
 //                    }
-                }
-                return criteriaBuilder.isMember(root.get("id"), artistPerformancesIds);
+//                }
+//                return criteriaBuilder.isMember(root.get("id"), artistPerformancesIds);
 //                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
 
