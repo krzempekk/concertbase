@@ -4,5 +4,5 @@ import concertbase.model.Subgenre;
 import org.springframework.data.repository.CrudRepository;
 
 public interface SubgenreRepository extends CrudRepository<Subgenre, Long> {
-    public Subgenre findByName(String name);
+    Subgenre findByName(String name);
 }

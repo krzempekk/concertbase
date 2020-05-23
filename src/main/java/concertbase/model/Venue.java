@@ -84,7 +84,19 @@ public class Venue {
 
     public long getId(){ return this.id; }
 
-//    public void addLiveConcert(LiveConcert liveConcert){
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Venue)) return false;
+        Venue other = (Venue) obj;
+        return this.id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) this.id * 2137 + this.streetNumber;
+    }
+
+    //    public void addLiveConcert(LiveConcert liveConcert){
 //        this.liveConcerts.add(liveConcert);
 //    }
 //
