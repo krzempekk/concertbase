@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.management.InvalidAttributeValueException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -58,7 +59,22 @@ public class ConcertService {
     public LiveConcert addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
         Venue venue = this.venueRepository.findByNameAndCity(venueName, city);
         LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
+//        venue.addLiveConcert(liveConcert);
+//        venueRepository.save(venue);
         liveConcertRepository.save(liveConcert);
+        return liveConcert;
+    }
+
+    public LiveConcert addLiveConcert(String name, String date, String organizerWebsite, Long venueId) throws ParseException, InvalidAttributeValueException {
+        Optional<Venue> optVenue = this.venueRepository.findById(venueId);
+
+        if(optVenue.isEmpty()) throw new InvalidAttributeValueException("No such venue");
+        Venue venue = optVenue.get();
+
+        LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
+        venue.addLiveConcert(liveConcert);
+        liveConcertRepository.save(liveConcert);
+        venueRepository.save(venue);
         return liveConcert;
     }
 
@@ -150,6 +166,8 @@ public class ConcertService {
 
         });
     }
+
+    public Concert findByName(String name){ return this.concertRepository.findByName(name); }
 
 
 }

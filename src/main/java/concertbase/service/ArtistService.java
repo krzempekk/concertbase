@@ -20,9 +20,6 @@ public class ArtistService {
     SubgenreRepository subgenreRepository;
 
     @Autowired
-    MemberRepository memberRepository;
-
-    @Autowired
     PerformanceRepository performanceRepository;
 
     @Autowired

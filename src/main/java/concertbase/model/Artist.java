@@ -15,8 +15,8 @@ public class Artist {
     @OneToMany(mappedBy = "artist")
     private List<Performance> performances;
 
-    @ManyToMany(mappedBy = "artists")
-    private List<Member> members = new ArrayList<>();
+//    @ManyToMany(mappedBy = "artists")
+//    private List<Member> members = new ArrayList<>();
 
     @ManyToMany(mappedBy = "artists", cascade=CascadeType.ALL)
     private List<Subgenre> subgenres = new ArrayList<>();
@@ -40,14 +40,14 @@ public class Artist {
         }
     }
 
-    public List<Member> getMembers() { return members; }
-
-    public void addMember(Member member) {
-        if(!this.members.contains(member)) {
-            this.members.add(member);
-            member.addArtist(this);
-        }
-    }
+//    public List<Member> getMembers() { return members; }
+//
+//    public void addMember(Member member) {
+//        if(!this.members.contains(member)) {
+//            this.members.add(member);
+//            member.addArtist(this);
+//        }
+//    }
 
     public List<Subgenre> getSubgenres() { return subgenres; }
 

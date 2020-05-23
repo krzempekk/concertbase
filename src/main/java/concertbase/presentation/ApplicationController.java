@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 public class ApplicationController {
 
+
 //    @RequestMapping("/")
 //    public String index() {
 //        return "Greetings from Spring Boot!";
@@ -120,6 +121,7 @@ public class ApplicationController {
         searchForm.getSearchString();
                 // TUTAJ ANIA ^
 
+        Concert foundConcert = this.concertService.findByName(searchForm.getSearchString());
         ArrayList<String> results = new ArrayList<>();
         results.add("hej");
         model.addAttribute("searchForm", searchForm);
