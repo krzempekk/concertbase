@@ -66,7 +66,7 @@ body{
 .videoPlayers{
     height: 40vh;
     position: relative;
-    left: 70vw;
+    left: 20vw;
     top: 0vh;
 
     display: flex;
@@ -231,6 +231,7 @@ body{
 .searchInputs > .searchBar, .searchButton{
     height: 100%;
     /*border: 2px solid var(--color4);*/
+    border: none;
     border-radius: 2px;
     padding: 0.5vh 4vh;
     cursor: pointer;
@@ -253,6 +254,7 @@ body{
 
 .queryResult{
     margin-top: 3vh;
+    padding-bottom: 3vh;
 }
 
 .queryResult > .queriedConcert{
@@ -271,5 +273,7 @@ body{
 
 .sectionRight.live{
     display: grid;
-    grid-template-columns: 4vw auto 5vw auto auto;
+    grid-template-columns: 4vw auto auto;
+    grid-column-gap: 2vw;
+    justify-items: start;
 }
