@@ -52,4 +52,18 @@ public class ApplicationController {
         return "index";
     }
 
+    @GetMapping("/")
+    public String index(
+
+    ){
+        return "index";
+    }
+
+    @PostMapping("/")
+    public String searchSubmit(
+        String search
+    ){
+        return "index";
+    }
+
 }
