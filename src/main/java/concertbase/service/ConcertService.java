@@ -70,13 +70,19 @@ public class ConcertService {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Long> artistPerformancesIds = performanceRepository.findByArtist(artist)
-                    .stream()
-                    .map(performance -> performance.getConcert().getId())
-                    .collect(Collectors.toList());
+                List<Predicate> predicates = new ArrayList<Predicate>();
 
-                return root.get("id").in(artistPerformancesIds);
+                if(artist != null) {
+                    List<Long> artistPerformancesIds = performanceRepository.findByArtist(artist)
+                        .stream()
+                        .map(performance -> performance.getConcert().getId())
+                        .collect(Collectors.toList());
 
+                    predicates.add(root.get("id").in(artistPerformancesIds));
+                }
+
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 
 //                List<Predicate> predicates = new ArrayList<>();
 //                List<String> artistPerformancesIds = null;
