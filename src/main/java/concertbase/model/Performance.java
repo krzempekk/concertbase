@@ -33,4 +33,8 @@ public class Performance {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    public Concert getConcert() {
+        return concert;
+    }
 }

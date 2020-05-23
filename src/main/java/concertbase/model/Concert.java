@@ -29,6 +29,10 @@ public abstract class Concert implements Comparable {
         this.name = name;
     }
 
+    public long getId(){
+        return this.id;
+    }
+
     public String getName() {
         return name;
     }
@@ -49,5 +53,10 @@ public abstract class Concert implements Comparable {
 
     public void setOrganizerWebsite(String organizerWebsite) {
         this.organizerWebsite = organizerWebsite;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.date;
     }
 }
