@@ -17,24 +17,28 @@ public class GenreService {
     @Autowired
     SubgenreRepository subgenreRepository;
 
-    public void addGenre(String name) {
-        genreRepository.save(new Genre(name));
+    public Genre addGenre(String name) {
+        Genre genre = new Genre(name);
+        genreRepository.save(genre);
+        return genre;
     }
 
-    private void addSubgenre(String name, Genre genre) {
+    private Subgenre addSubgenre(String name, Genre genre) {
         Subgenre subgenre = new Subgenre(name);
         subgenreRepository.save(subgenre);
         subgenre.setGenre(genre);
+        return subgenre;
     }
 
-    public void addSubgenre(String name, long genreId) {
+    public Subgenre addSubgenre(String name, long genreId) {
         Genre genre = genreRepository.findById(genreId);
-        addSubgenre(name, genre);
+        return addSubgenre(name, genre);
+
     }
 
-    public void addSubgenre(String name, String genreName) {
+    public Subgenre addSubgenre(String name, String genreName) {
         Genre genre = genreRepository.findByName(genreName).get(0);
-        addSubgenre(name, genre);
+        return addSubgenre(name, genre);
     }
 
 

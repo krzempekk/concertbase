@@ -1,0 +1,19 @@
+[
+  {
+    "_class": "concertbase.model.Genre",
+    "name": "metal"
+  },
+  {
+    "_class": "concertbase.model.Genre",
+    "name": "rock"
+  },
+  {
+    "_class": "concertbase.model.Genre",
+    "name": "pop"
+  },
+  {
+    "_class": "concertbase.model.Genre",
+    "name": "jazz"
+  }
+
+]

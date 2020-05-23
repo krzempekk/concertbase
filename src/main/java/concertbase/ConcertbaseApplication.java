@@ -1,6 +1,5 @@
 package concertbase;
 
-import concertbase.model.*;
 import concertbase.persistence.*;
 import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
@@ -12,10 +11,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import java.text.SimpleDateFormat;
-import java.util.List;
+import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 
 
 @SpringBootApplication
@@ -40,6 +39,13 @@ public class ConcertbaseApplication {
 //			}
 //		};
 //	}
+	@Bean
+	public Jackson2RepositoryPopulatorFactoryBean getRespositoryPopulator() {
+		Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
+//		factory.setResources(new Resource[]{new ClassPathResource("venues.json")});
+		factory.setResources(new Resource[]{new ClassPathResource("genres.json")});
+		return factory;
+	}
 
 	@Bean
 	public CommandLineRunner demo(
@@ -54,34 +60,37 @@ public class ConcertbaseApplication {
             VenueRepository venueRepository
 	) {
 		return args -> {
-			genreService.addGenre("Metal");
-			genreService.addSubgenre("Doom metal", "Metal");
-			genreService.addSubgenre("Orthodox black metal", "Metal");
-			genreService.addSubgenre("Prog metal", "Metal");
-			genreService.addSubgenre("Thrash metal", "Metal");
-			genreService.addSubgenre("Speed metal", "Metal");
 
-			artistService.addArtist("Katatonia", new String[] {"Doom metal", "Prog metal"});
-			artistService.addArtist("Kreator", "Thrash metal");
-			artistService.addArtist("Lamb of God", "Speed metal");
-			artistService.addArtist("Batushka", "Orthodox black metal");
 
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Venue venue = new Venue("Studio", "Krakow", "Polska", "Budryka", 2, "666-666" );
 
-            venueRepository.save(venue);
+//			genreService.addGenre("Metal");
+//			genreService.addSubgenre("Doom metal", "Metal");
+//			genreService.addSubgenre("Orthodox black metal", "Metal");
+//			genreService.addSubgenre("Prog metal", "Metal");
+//			genreService.addSubgenre("Thrash metal", "Metal");
+//			genreService.addSubgenre("Speed metal", "Metal");
 
-			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("2020-06-10"), "knockout.jp2", venue);
-			concertRepository.save(concert);
-			concert = new LiveConcert("State of Unrest", formatter.parse("2020-04-02"), "knockout.jp2", null);
-			concertRepository.save(concert);
-			concert = new LiveConcert("Panihida Tour", formatter.parse("2020-03-13"), "knockout.jp2", null);
-			concertRepository.save(concert);
+//			artistService.addArtist("Katatonia", new String[] {"Doom metal", "Prog metal"});
+//			artistService.addArtist("Kreator", "Thrash metal");
+//			artistService.addArtist("Lamb of God", "Speed metal");
+//			artistService.addArtist("Batushka", "Orthodox black metal");
 
-			artistService.addPerformance("Katatonia", "Mystic Festival");
-			artistService.addPerformance("Kreator", "State of Unrest");
-			artistService.addPerformance("Lamb of God", "State of Unrest");
-			artistService.addPerformance("Batushka", "Panihida Tour");
+//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//			Venue venue = new Venue("Studio", "Krakow", "Budryka", 2, "666-666" );
+//
+//            venueRepository.save(venue);
+//
+//			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("2020-06-10"), "knockout.jp2", venue);
+//			concertRepository.save(concert);
+//			concert = new LiveConcert("State of Unrest", formatter.parse("2020-04-02"), "knockout.jp2", null);
+//			concertRepository.save(concert);
+//			concert = new LiveConcert("Panihida Tour", formatter.parse("2020-03-13"), "knockout.jp2", null);
+//			concertRepository.save(concert);
+//
+//			artistService.addPerformance("Katatonia", "Mystic Festival");
+//			artistService.addPerformance("Kreator", "State of Unrest");
+//			artistService.addPerformance("Lamb of God", "State of Unrest");
+//			artistService.addPerformance("Batushka", "Panihida Tour");
 
 
 //			log.info("Searching for doom metal artists...");
@@ -90,20 +99,20 @@ public class ConcertbaseApplication {
 //			}
 
 //			concertService.findConcertByGenre("Gothic metal");
-			Artist searchedArtist = artistRepository.findByName("Lamb of God");
-			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
-			if(performances!= null) {
-				System.out.println("Performances: ");
-				performances.forEach(System.out::println);
-			}
-
-			List<Concert> foundconcerts = concertService.findByLiveByCriteria(null, "Speed metal", null, null, null);
-			System.out.println("Concerts with artist " + searchedArtist.getName());
-			if(foundconcerts != null) {
-				foundconcerts.forEach(System.out::println);
-			} else {
-				System.out.println("No concerts found :(");
-			}
+//			Artist searchedArtist = artistRepository.findByName("Lamb of God");
+//			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
+//			if(performances!= null) {
+//				System.out.println("Performances: ");
+//				performances.forEach(System.out::println);
+//			}
+//
+//			List<Concert> foundconcerts = concertService.findByLiveByCriteria(null, "Speed metal", null, null, null, null);
+//			System.out.println("Concerts with artist " + searchedArtist.getName());
+//			if(foundconcerts != null) {
+//				foundconcerts.forEach(System.out::println);
+//			} else {
+//				System.out.println("No concerts found :(");
+//			}
 
 //			Subgenre subgenre = new Subgenre("Doom metal");
 //			artistRepository.findAllBySubgenresContains_Name(subgenre);

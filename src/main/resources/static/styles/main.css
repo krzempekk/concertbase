@@ -5,7 +5,7 @@
     --color4: #E0FBFC;
     --color5: #C2DFE3;
 
-    --white: #FEFEFE;
+    --white: #FEEEFE;
     --black: #232323;
 }
 
@@ -94,7 +94,7 @@ body{
 
 .bigVideoPlayer > .shortTitle{
     font-size: 2vh;
-    padding: 1vh;
+    padding: 0.5vh;
     max-width: 62vh;
 }
 
@@ -188,4 +188,63 @@ body{
     cursor: pointer;
 
 
+}
+
+
+
+
+
+
+
+
+
+.searchPage{
+    width: 80vw;
+    height: 30vh;
+    margin: 11vh auto;
+    padding-top: 3vh;
+
+
+
+    background: var(--color3);
+    transform: skewY(-7.2deg);
+
+}
+
+.searchPage > .searchTitle{
+    padding-left: 10vw;
+    padding-right: 10vw;
+    position: relative;
+    display: inline list-item;
+    font-size: 40px;
+}
+
+.searchInputs{
+    width: 80%;
+    height: 5vh;
+    margin: 1.5vh auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 5vh 5vh 5vh;
+    grid-row-gap: 1.5vh;
+}
+
+.searchInputs > .searchBar, .searchButton{
+    height: 100%;
+    border: 2px solid var(--color4);
+    border-radius: 2px;
+    padding: 0.5vh 4vh;
+    cursor: pointer;
+}
+
+
+
+.buttons{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: calc((100% - 10px)*2/3 ) calc((100% - 10px)*1/3);
+
+    grid-column-gap: 10px;
+    justify-content: center;
+    background: transparent;
 }

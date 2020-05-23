@@ -98,7 +98,7 @@ public class ApplicationController {
     public String test_base(
 
     ){
-        return "base";
+        return "index";
     }
 
 }
