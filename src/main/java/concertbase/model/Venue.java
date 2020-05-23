@@ -82,6 +82,8 @@ public class Venue {
         this.city = city;
     }
 
+    public long getId(){ return this.id; }
+
 //    public void addLiveConcert(LiveConcert liveConcert){
 //        this.liveConcerts.add(liveConcert);
 //    }
