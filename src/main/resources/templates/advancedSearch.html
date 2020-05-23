@@ -99,20 +99,20 @@
     <form class="searchPage" id="searchPage" method="post" th:action="@{/advancedSearch}" th:object="${searchForm}">
         <div class="searchTitle">Search for concert</div>
         <div class="searchInputs">
-            <input class="searchBar" type="text" name="artist" placeholder="artistName" th:field="*{artistName}">
+            <input class="searchBar" type="text" name="artist" placeholder="Artist Name" th:field="*{artistName}">
             <span th:if="${#fields.hasErrors('artistName')}" th:errors="*{artistName}"></span>
 
-            <input class="searchBar" type="text" name="artist" placeholder="subgenreName" th:field="*{subgenreName}">
+            <input class="searchBar" type="text" name="artist" placeholder="Subgenre Name" th:field="*{subgenreName}">
             <span th:if="${#fields.hasErrors('subgenreName')}" th:errors="*{subgenreName}"></span>
 
-            <input class="searchBar city" type="text" name="artist" placeholder="city" th:field="*{city}">
+            <input class="searchBar city" type="text" name="artist" placeholder="City" th:field="*{city}">
             <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
             <div style="background: transparent"></div>
 
-            <input class="searchBar date" type="text" name="artist" placeholder="dateFrom" th:field="*{dateFrom}" onfocus="(this.type='date')">
+            <input class="searchBar date" type="text" name="artist" placeholder="Date From" th:field="*{dateFrom}" onfocus="(this.type='date')">
             <span th:if="${#fields.hasErrors('dateFrom')}" th:errors="*{dateFrom}"></span>
 
-            <input class="searchBar date" type="text" name="artist" placeholder="dateTo" th:field="*{dateTo}" onfocus="(this.type='date')">
+            <input class="searchBar date" type="text" name="artist" placeholder="Date To" th:field="*{dateTo}" onfocus="(this.type='date')">
             <span th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></span>
 
             <div class="buttons">
@@ -121,6 +121,25 @@
 
         </div>
     </form>
+
+    <div class="queryResult" th:if="${results.size() > 0}">
+        <div class="searchTitle">Search results</div>
+
+        <div class="queriedConcert" th:each="result : ${results}">
+            <div th:text="${result.getDate()}"/>
+            <div class="concertTitle" th:text="${result.getName()}"/>
+            Organisator website: <a th:href="@{${result.getOrganizerWebsite()}}" th:text="${result.getOrganizerWebsite()}"/>
+
+            <div class="sectionRight streamed" th:if="${result.getType() == T(concertbase.util.ConcertType).STREAMED}">
+                Stream link: <a th:href="@{${result.getWebsite()}}" th:text="${result.getWebsite()}"/>
+            </div>
+            <div class="sectionRight live" th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
+                Place:
+                <div th:text="${result.getVenue().name}"/>
+                <div th:text="${result.getVenue().zipCode + '  ' + result.getVenue().city + '  ' + result.getVenue().street + ' ' + result.getVenue().streetNumber}"/>
+            </div>
+        </div>
+    </div>
 
 
 
