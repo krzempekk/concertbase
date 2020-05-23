@@ -40,6 +40,10 @@
             <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span>
         </label>
 
+        <select th:field="*{venueId}">
+            <option th:each="venue: ${venues}" th:value="${venue.getId()}" th:text="${venue.getName()}"></option>
+        </select>
+
         <button type="submit">Submit</button>
     </form>
 

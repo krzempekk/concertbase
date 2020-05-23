@@ -30,6 +30,11 @@ public class ArtistService {
     @Autowired
     ConcertRepository concertRepository;
 
+    public Artist addArtist(String name) {
+        Artist artist = new Artist(name);
+        artistRepository.save(artist);
+        return artist;
+    }
 
     public Artist addArtist(String name, String subgenreName) {
         Artist artist = new Artist(name);
@@ -51,7 +56,7 @@ public class ArtistService {
 
     public Performance addPerformance(String artistName, Concert concert, String startTime, String endTime) {
         Artist artist = artistRepository.findByName(artistName);
-        if(artist == null) artist = addArtist(artistName, "");
+        if(artist == null) artist = addArtist(artistName);
         Performance performance = new Performance(artist, concert, "headliner", LocalTime.parse(startTime), LocalTime.parse(endTime));
         performanceRepository.save(performance);
         return performance;

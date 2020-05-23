@@ -28,7 +28,7 @@ public class ConcertForm {
     @Pattern(regexp = "\\d{2}:\\d{2}", message = "End time not in valid format")
     private String endTime;
 
-    private String venueId;
+    private Long venueId;
 
     @URL(message = "This is not a valid URL")
     private String website;
@@ -82,10 +82,10 @@ public class ConcertForm {
     }
 
     public Long getVenueId() {
-        return Long.valueOf(venueId);
+        return venueId;
     }
 
-    public void setVenueId(String venueId) {
+    public void setVenueId(Long venueId) {
         this.venueId = venueId;
     }
 
