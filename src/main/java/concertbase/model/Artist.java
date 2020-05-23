@@ -31,6 +31,15 @@ public class Artist {
 
     public void setName(String name) { this.name = name; }
 
+    public List<Performance> getPerformances() { return performances; }
+
+    public void addPerformance(Performance performance) {
+        if(!this.performances.contains(performance)) {
+            this.performances.add(performance);
+            performance.setArtist(this);
+        }
+    }
+
     public List<Member> getMembers() { return members; }
 
     public void addMember(Member member) {

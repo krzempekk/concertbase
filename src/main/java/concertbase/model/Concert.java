@@ -37,6 +37,16 @@ public abstract class Concert implements Comparable {
         this.name = name;
     }
 
+    public List<Performance> getPerformances() {
+        return performances;
+    }
+
+    public void addPerformance(Performance performance) {
+        if(!this.performances.contains(performance)) {
+            this.performances.add(performance);
+            performance.setConcert(this);
+        }
+    }
 
     public int compareTo(Object other){
         if(!(other instanceof Concert)) return 0;
