@@ -1,10 +1,10 @@
 package concertbase;
 
-import concertbase.model.*;
-import concertbase.persistence.ArtistRepository;
-import concertbase.persistence.ConcertRepository;
-import concertbase.persistence.GenreRepository;
-import concertbase.persistence.SubgenreRepository;
+import concertbase.model.Artist;
+import concertbase.model.Concert;
+import concertbase.model.LiveConcert;
+import concertbase.model.Performance;
+import concertbase.persistence.*;
 import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
 import concertbase.service.GenreService;
@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -51,7 +52,8 @@ public class ConcertbaseApplication {
 			ArtistRepository artistRepository,
 			GenreRepository genreRepository,
 			SubgenreRepository subgenreRepository,
-			ConcertRepository concertRepository
+			ConcertRepository concertRepository,
+			PerformanceRepository performanceRepository
 	) {
 		return args -> {
 			genreService.addGenre("Metal");
@@ -78,8 +80,17 @@ public class ConcertbaseApplication {
 //				log.info(artist.getName());
 //			}
 
-			concertService.findConcertByGenre("Gothic metal");
-
+//			concertService.findConcertByGenre("Gothic metal");
+			Artist searchedArtist = artistRepository.findByName("Paradise Lost");
+			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
+			if(performances!= null){
+				System.out.println("Performances:");
+				performances.forEach(System.out::println);
+			}
+			System.out.println("Concerts with artist " + searchedArtist.getName());
+			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, null, null, null);
+			if(foundconcerts!=null)
+				foundconcerts.forEach(System.out::println);
 
 //			Subgenre subgenre = new Subgenre("Doom metal");
 //			artistRepository.findAllBySubgenresContains_Name(subgenre);

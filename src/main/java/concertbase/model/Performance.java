@@ -23,6 +23,7 @@ public class Performance {
 
     private LocalTime endTime;
 
+
     public Performance() {}
 
     public Performance(Artist artist, Concert concert, String role, LocalTime startTime, LocalTime endTime) {

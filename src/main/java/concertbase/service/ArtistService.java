@@ -18,10 +18,14 @@ public class ArtistService {
     SubgenreRepository subgenreRepository;
 
     @Autowired
-    ConcertRepository concertRepository;
+    MemberRepository memberRepository;
 
     @Autowired
     PerformanceRepository performanceRepository;
+
+    @Autowired
+    ConcertRepository concertRepository;
+
 
     public void addArtist(String name, String subgenreName) {
         Artist artist = new Artist(name);
@@ -44,4 +48,6 @@ public class ArtistService {
 
         performanceRepository.save(performance);
     }
+
+
 }

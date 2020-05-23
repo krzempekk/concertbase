@@ -1,19 +1,18 @@
 package concertbase.service;
 
 import concertbase.model.*;
-import concertbase.persistence.ArtistRepository;
-import concertbase.persistence.ConcertRepository;
-import concertbase.persistence.LiveConcertRepository;
-import concertbase.persistence.StreamedConcertRepository;
-import concertbase.persistence.VenueRepository;
+import concertbase.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import javax.persistence.criteria.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -35,6 +34,9 @@ public class ConcertService {
 
     @Autowired
     VenueRepository venueRepository;
+
+    @Autowired
+    PerformanceRepository performanceRepository;
 
 
     public void findConcertByGenre(String subgenreName) {
@@ -60,6 +62,39 @@ public class ConcertService {
     private Date parseDate(String dateString) throws ParseException {
         return formatter.parse(dateString);
     }
+
+
+    public List<Concert> findByLiveByCriteria(Artist artist, Subgenre subgenre, String city, String fromDate, String toDate){
+        return concertRepository.findAll(new Specification<Concert>() {
+
+            @Override
+            public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = new ArrayList<>();
+                if (artist != null) {
+                    List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
+                    artistPerformances.forEach(System.out::println);
+                    if(artistPerformances != null) {
+                        for (Performance performance : artistPerformances) {
+                            predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), performance.getConcert().getId())));
+                        }
+                    }
+
+                }
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+
+        });
+    }
+
+
+
+//    public List<Concert> findByCriteria(String artistName, String subgerneName, String city, String fromDate, String toDate){
+//        List<Predicate> predicates = new ArrayList<>();
+//
+//
+//    }
+
+
 
 
 }
