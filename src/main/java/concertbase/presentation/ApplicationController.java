@@ -171,6 +171,7 @@ public class ApplicationController {
 
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
+        model.addAttribute("errors", errors);
 
         return "index";
     }

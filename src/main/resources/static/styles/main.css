@@ -197,11 +197,10 @@ body{
 
 
 
-
-.searchPage{
+.searchPage, .queryResult{
     width: 80vw;
-    height: 30vh;
-    margin: 11vh auto;
+    min-height: 25vh;
+    margin: 11vh auto 8vh;
     padding-top: 3vh;
 
 
@@ -211,7 +210,7 @@ body{
 
 }
 
-.searchPage > .searchTitle{
+.searchTitle{
     padding-left: 10vw;
     padding-right: 10vw;
     position: relative;
@@ -247,4 +246,24 @@ body{
     grid-column-gap: 10px;
     justify-content: center;
     background: transparent;
+}
+
+
+
+
+.queryResult{
+    margin-top: 3vh;
+}
+
+.queryResult > .queriedConcert{
+    margin: 1.5vh auto;
+    width: calc( 80% - 8vh );
+    border-radius: 2px;
+    padding: 0.5vh 4vh;
+}
+
+.queryResult > .queriedConcert > .concertTitle{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
 }
