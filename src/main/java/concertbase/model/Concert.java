@@ -1,5 +1,7 @@
 package concertbase.model;
 
+import concertbase.util.ConcertType;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,15 +20,18 @@ public abstract class Concert implements Comparable {
 
     private String name;
 
+    private ConcertType type;
+
     @OneToMany(mappedBy = "concert")
     private List<Performance> performances = new ArrayList<>();
 
     public Concert() { }
 
-    public Concert(String name, Date date, String organizerWebsite){
+    public Concert(String name, Date date, String organizerWebsite, ConcertType type){
         this.date = date;
         this.organizerWebsite = organizerWebsite;
         this.name = name;
+        this.type = type;
     }
 
     public long getId(){
@@ -68,5 +73,9 @@ public abstract class Concert implements Comparable {
     @Override
     public String toString() {
         return this.name + " " + this.date;
+    }
+
+    public ConcertType getType() {
+        return type;
     }
 }

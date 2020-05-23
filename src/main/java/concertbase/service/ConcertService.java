@@ -58,7 +58,7 @@ public class ConcertService {
 
     public LiveConcert addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
         Venue venue = this.venueRepository.findByNameAndCity(venueName, city);
-        LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
+        LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, ConcertType.LIVE, venue);
         liveConcertRepository.save(liveConcert);
         return liveConcert;
     }
@@ -69,13 +69,13 @@ public class ConcertService {
         if(optVenue.isEmpty()) throw new InvalidAttributeValueException("No such venue");
         Venue venue = optVenue.get();
 
-        LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, venue);
+        LiveConcert liveConcert = new LiveConcert(name, parseDate(date), organizerWebsite, ConcertType.LIVE, venue);
         liveConcertRepository.save(liveConcert);
         return liveConcert;
     }
 
     public StreamedConcert addStreamedConcert(String name, String date, String organizerWebsite, String website) throws ParseException {
-        StreamedConcert streamedConcert = new StreamedConcert(name, parseDate(date), organizerWebsite, website);
+        StreamedConcert streamedConcert = new StreamedConcert(name, parseDate(date), organizerWebsite, ConcertType.STREAMED, website);
         streamedConcertRepository.save(streamedConcert);
         return streamedConcert;
     }
@@ -86,7 +86,7 @@ public class ConcertService {
     }
 
 
-    public List<Concert> findByLiveByCriteria(String artistName, String subgenreName, String city, String dateFrom, String dateTo, ConcertType type) {
+    public List<Concert> findByCriteria(String artistName, String subgenreName, String city, String dateFrom, String dateTo, ConcertType type) {
         return concertRepository.findAll(new Specification<>() {
 
             @Override

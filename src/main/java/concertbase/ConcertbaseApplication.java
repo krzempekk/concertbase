@@ -51,7 +51,7 @@ public class ConcertbaseApplication {
             VenueService venueService
 	) {
 		return args -> {
-			venueService.printVenueConcerts("Studio", "Kraków");
+			concertService.findByCriteria("Bloodbath", null, null, null, null, null);
 
 		};
 	}

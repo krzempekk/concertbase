@@ -1,5 +1,7 @@
 package concertbase.model;
 
+import concertbase.util.ConcertType;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,8 +16,8 @@ public class LiveConcert extends Concert {
 
     public LiveConcert() {}
 
-    public LiveConcert(String name, Date date, String organizerWebsite, Venue venue){
-        super(name, date, organizerWebsite);
+    public LiveConcert(String name, Date date, String organizerWebsite, ConcertType type, Venue venue){
+        super(name, date, organizerWebsite, type);
         this.venue = venue;
         if(!venue.getConcerts().contains(this))
             venue.addLiveConcert(this);
@@ -31,5 +33,9 @@ public class LiveConcert extends Concert {
             venue.addLiveConcert(this);
     }
 
+
+    public ConcertType getType(){
+        return super.getType();
+    }
 
 }
