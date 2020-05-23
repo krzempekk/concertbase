@@ -31,6 +31,7 @@ public class Performance {
 
         this.concert = concert;
         concert.addPerformance(this);
+
         this.role = role;
         this.startTime = startTime;
         this.endTime = endTime;

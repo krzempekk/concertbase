@@ -34,8 +34,6 @@ public class HelloController {
         model.addAttribute("genres", genres);
         model.addAttribute("genre", new Genre());
 
-
-
         return "concerts";
     }
 
