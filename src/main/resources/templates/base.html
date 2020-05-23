@@ -38,6 +38,23 @@
     <img class="scrollButton" th:src="@{/icons/back.png}" style="left: 0" onclick="scrollVideo(10)">
     <img class="scrollButton" th:src="@{/icons/next.png}" style="right: 0" onclick="scrollVideo(-10)">
 
+    <div class="searchPage">
+        <div class="searchTitle">Search for concert</div>
+        <div class="searchInputs">
+            <input class="searchBar" type="text" placeholder="Concert name">
+
+            <div class="buttons">
+                <input class="searchButton" type="button" value="Search">
+                <a href="/advancedSearch" style="display: contents;">
+                    <input class="searchButton advanced" type="button" value=" > Advanced Search > ">
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 
@@ -52,46 +69,13 @@
 
 
 
-
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
 <script type="text/javascript">
-    function changePosition(element){
-        element.style.left = "20vw";
-    }
-
     window.onload = function() {
         element = document.getElementsByClassName("videoPlayers")[0];
         setTimeout(changePosition(element), 5000);
-    };
-
-    function scrollVideo(value) {
-        let element = document.getElementsByClassName("videoPlayers")[0];
-        let change_value = parseInt(value);
-
-
-        let okienko = element.getBoundingClientRect();
-        if (change_value < 0){
-            if(okienko.right < 0.9 * screen.width){
-                console.log("can't scroll any more to right");
-            }
-            else{
-                let temp_string = element.style.left;
-                let current_value = parseInt(temp_string.slice(0,-2)) + change_value;
-                element.style.left = current_value + "vw";
-            }
-        }
-        else{
-            if(okienko.left > 0.1 * screen.width){
-                console.log("can't scroll any more to left");
-            }
-            else{
-                let temp_string = element.style.left;
-                let current_value = parseInt(temp_string.slice(0,-2)) + change_value;
-                element.style.left = current_value + "vw";
-            }
-        }
-
-
     }
+
 
 </script>
 </body>
