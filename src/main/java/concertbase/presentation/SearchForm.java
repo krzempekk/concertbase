@@ -1,15 +1,15 @@
 package concertbase.presentation;
 
 public class SearchForm {
-    private String artistName;
+    public String artistName;
 
-    private String subgenreName;
+    public String subgenreName;
 
-    private String city;
+    public String city;
 
-    private String dateFrom;
+    public String dateFrom;
 
-    private String dateTo;
+    public String dateTo;
 
     public String getArtistName() {
         return artistName;

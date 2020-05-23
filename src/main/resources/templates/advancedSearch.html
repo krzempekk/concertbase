@@ -1,12 +1,5 @@
 <!--
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>ConcertBase</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
-    <link th:href="@{/styles/main.css}" rel="stylesheet" />
-</head>
+
 <body>
 
 <div class="page">
@@ -85,53 +78,53 @@
 
 
 -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Concerts</title>
+    <title>Advanced Search</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <link th:href="@{/styles/advancedSearch.css}" rel="stylesheet" />
 </head>
+
+
+
 <body>
 
 <div class="page">
     <div th:replace="fragments/mainTitle :: mainTitle"></div>
 
-    <form method="post" action="/concerts">
-        <label>
-            Artist
-            <input type="text" name="artist"/>
-        </label>
-        <label>
-            City
-            <input type="text" name="city"/>
-        </label>
-        <button>Add</button>
+    <form class="searchPage" id="searchPage" method="post" th:action="@{/advancedSearch}" th:object="${searchForm}">
+        <div class="searchTitle">Search for concert</div>
+        <div class="searchInputs">
+            <input class="searchBar" type="text" name="artist" placeholder="artistName" th:field="*{artistName}">
+            <span th:if="${#fields.hasErrors('artistName')}" th:errors="*{artistName}"></span>
+
+            <input class="searchBar" type="text" name="artist" placeholder="subgenreName" th:field="*{subgenreName}">
+            <span th:if="${#fields.hasErrors('subgenreName')}" th:errors="*{subgenreName}"></span>
+
+            <input class="searchBar city" type="text" name="artist" placeholder="city" th:field="*{city}">
+            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+            <div style="background: transparent"></div>
+
+            <input class="searchBar date" type="text" name="artist" placeholder="dateFrom" th:field="*{dateFrom}" onfocus="(this.type='date')">
+            <span th:if="${#fields.hasErrors('dateFrom')}" th:errors="*{dateFrom}"></span>
+
+            <input class="searchBar date" type="text" name="artist" placeholder="dateTo" th:field="*{dateTo}" onfocus="(this.type='date')">
+            <span th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></span>
+
+            <div class="buttons">
+                <input class="searchButton wide" type="submit" value="Search">
+            </div>
+
+        </div>
     </form>
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
 
 </div>
-
-<!--    <main role="main" class="container">-->
-<!--        <div th:each="genre: ${genres}">-->
-<!--            <div th:text="${genre}"/>-->
-<!--        </div>-->
-
-<!--        <form action="#" th:action="@{/concerts}" th:object="${genre}" method="post">-->
-<!--            <input type="text" th:field="*{name}">-->
-<!--            <input type="submit" value="Add genre"/>-->
-<!--        </form>-->
-<!--    </main>-->
-
 </body>
 </html>

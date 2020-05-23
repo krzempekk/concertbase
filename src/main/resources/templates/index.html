@@ -47,18 +47,15 @@
 
             <div class="buttons">
                 <input class="searchButton" type="submit" value="Search">
-                <a href="/advancedSearch" style="display: contents;">
-                    <input class="searchButton advanced" type="submit" value=" > Advanced Search > ">
+                <a href="/advancedSearch" style="display: flex; text-decoration: none; justify-content: center">
+                    <div class="searchButton advanced" type="submit" value=" > Advanced Search > " href="/advancedSearch"> > Advanced Search > </div>
                 </a>
-
             </div>
-
         </div>
-
     </form>
 
 
-    <!-- TODO wyświetlać ładnie wyniki -->
+
     <div class="queryResult" th:if="${results.size() > 0}">
         <div class="searchTitle">Search results</div>
 
@@ -77,15 +74,11 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 <div class="page">
     tetetetetetdsfdsfdsfg
 </div>
-
-
 
 
 
@@ -95,8 +88,6 @@
         element = document.getElementsByClassName("videoPlayers")[0];
         setTimeout(changePosition(element), 5000);
     }
-
-
 </script>
 </body>
 </html>
