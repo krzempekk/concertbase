@@ -70,6 +70,7 @@ public class ConcertbaseApplication {
 			Venue venue = new Venue("Studio", "Krakow", "Polska", "Budryka", 2, "666-666" );
 
             venueRepository.save(venue);
+
 			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("2020-06-10"), "knockout.jp2", venue);
 			concertRepository.save(concert);
 			concert = new LiveConcert("State of Unrest", formatter.parse("2020-04-02"), "knockout.jp2", null);
@@ -96,7 +97,7 @@ public class ConcertbaseApplication {
 				performances.forEach(System.out::println);
 			}
 
-			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, "Krakow", "2019-04-01", null);
+			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, "Krakow", null, null);
 			System.out.println("Concerts with artist " + searchedArtist.getName());
 			if(foundconcerts != null) {
 				foundconcerts.forEach(System.out::println);
