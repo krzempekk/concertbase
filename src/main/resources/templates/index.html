@@ -65,7 +65,12 @@
             <div th:text="${result.getName()}"/>
             <div th:text="${result.getOrganizerWebsite()}"/>
 
-            <div th:if="${result instanceof T(LiveConcert)}">tete</div>
+            <div th:if="${result.getType() == T(concertbase.util.ConcertType).STREAMED}">
+                Link: <a th:text="${result.getWebsite()}">tutaj</a>
+            </div>
+            <div th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
+                Lista miejsc:
+            </div>
 
 
         </div>

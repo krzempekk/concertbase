@@ -5,6 +5,7 @@ import concertbase.model.LiveConcert;
 import concertbase.model.StreamedConcert;
 import concertbase.service.ConcertService;
 import concertbase.service.VenueService;
+import concertbase.util.ConcertType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -130,13 +131,14 @@ public class ApplicationController {
         if (foundConcert == null){
             errors.add(String.format("Brak wyników dla zapytania: %s", searchForm.getSearchString() ));
             model.addAttribute("results", results);
+            model.addAttribute("errors", errors);
             return "index";
         }
 
         results.add(foundConcert);
 
 */
-        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", "https");
+        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
 
         model.addAttribute("searchForm", searchForm);
