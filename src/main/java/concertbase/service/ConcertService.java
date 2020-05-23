@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -65,22 +66,29 @@ public class ConcertService {
 
 
     public List<Concert> findByLiveByCriteria(Artist artist, Subgenre subgenre, String city, String fromDate, String toDate){
-        return concertRepository.findAll(new Specification<Concert>() {
+        return concertRepository.findAll(new Specification<>() {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = new ArrayList<>();
+//                List<Predicate> predicates = new ArrayList<>();
+                List<String> artistPerformancesIds = null;
                 if (artist != null) {
                     List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
                     artistPerformances.forEach(System.out::println);
-                    if(artistPerformances != null) {
-                        for (Performance performance : artistPerformances) {
-                            predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), performance.getConcert().getId())));
-                        }
-                    }
 
+                    artistPerformancesIds = artistPerformances
+                            .stream()
+                            .map(performance -> String.valueOf(performance.getConcert().getId()))
+                            .collect(Collectors.toList());
+
+//                    if (artistPerformances != null) {
+//                        for (Performance performance : artistPerformances) {
+//                            predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), performance.getConcert().getId())));
+//                        }
+//                    }
                 }
-                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+                return criteriaBuilder.isMember(root.get("id"), artistPerformancesIds);
+//                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
 
         });
