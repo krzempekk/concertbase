@@ -22,7 +22,7 @@ public class ConcertForm {
     @NotEmpty(message = "End time may not be empty")
     private String endTime;
 
-    private long venueId;
+    private String venueId;
 
     private String website;
 
@@ -74,11 +74,11 @@ public class ConcertForm {
         this.endTime = endTime;
     }
 
-    public long getVenueId() {
+    public String getVenueId() {
         return venueId;
     }
 
-    public void setVenueId(long venueId) {
+    public void setVenueId(String venueId) {
         this.venueId = venueId;
     }
 
