@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class VenueService {
@@ -15,6 +17,10 @@ public class VenueService {
 
     public void addVenue(String name, String country, String city, String street, int streetNumber, String zipCode){
         this.venueRepository.save(new Venue(name, country, city, street, streetNumber, zipCode));
+    }
+
+    public Iterable<Venue> getAllVenues() {
+        return this.venueRepository.findAll();
     }
 
 }
