@@ -58,27 +58,29 @@ public class ConcertbaseApplication {
 		return args -> {
 			genreService.addGenre("Metal");
 			genreService.addSubgenre("Doom metal", "Metal");
-			genreService.addSubgenre("Gothic metal", "Metal");
-			genreService.addSubgenre("Stoner metal", "Metal");
+			genreService.addSubgenre("Orthodox black metal", "Metal");
+			genreService.addSubgenre("Prog metal", "Metal");
+			genreService.addSubgenre("Thrash metal", "Metal");
+			genreService.addSubgenre("Speed metal", "Metal");
 
-			artistService.addArtist("Candlemass", "Doom metal");
-			artistService.addArtist("Paradise Lost", new String[] {"Gothic metal", "Doom metal"});
-			artistService.addArtist("Elephant Tree", "Stoner metal");
+			artistService.addArtist("Katatonia", new String[] {"Doom metal", "Prog metal"});
+			artistService.addArtist("Kreator", "Thrash metal");
+			artistService.addArtist("Lamb of God", "Speed metal");
+			artistService.addArtist("Batushka", "Orthodox black metal");
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("10-06-2005"), "knockout.jp2", null);
+			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("2020-06-10"), "knockout.jp2", null);
 			concertRepository.save(concert);
-			concert = new LiveConcert("State of Unrest", formatter.parse("02-04-2020"), "knockout.jp2", null);
+			concert = new LiveConcert("State of Unrest", formatter.parse("2020-04-02"), "knockout.jp2", null);
 			concertRepository.save(concert);
-			concert = new LiveConcert("Panihida Tour", formatter.parse("13-03-2020"), "knockout.jp2", null);
+			concert = new LiveConcert("Panihida Tour", formatter.parse("2020-03-13"), "knockout.jp2", null);
 			concertRepository.save(concert);
 
-			artistService.addPerformance("Candlemass", "Mystic Festival");
-			artistService.addPerformance("Elephant Tree", "Mystic Festival");
-			artistService.addPerformance("Paradise Lost", "Mystic Festival");
-			artistService.addPerformance("Elephant Tree", "Panihida Tour");
-			artistService.addPerformance("Paradise Lost", "State of Unrest");
+			artistService.addPerformance("Katatonia", "Mystic Festival");
+			artistService.addPerformance("Kreator", "State of Unrest");
+			artistService.addPerformance("Lamb of God", "State of Unrest");
+			artistService.addPerformance("Batushka", "Panihida Tour");
 
 
 //			log.info("Searching for doom metal artists...");
@@ -87,10 +89,10 @@ public class ConcertbaseApplication {
 //			}
 
 //			concertService.findConcertByGenre("Gothic metal");
-			Artist searchedArtist = artistRepository.findByName("Elephant Tree");
+			Artist searchedArtist = artistRepository.findByName("Lamb of God");
 			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
 			if(performances!= null) {
-				System.out.println("Performances:");
+				System.out.println("Performances: ");
 				performances.forEach(System.out::println);
 			}
 
