@@ -66,7 +66,7 @@ body{
 .videoPlayers{
     height: 40vh;
     position: relative;
-    left: 90vw;
+    left: 70vw;
     top: 0vh;
 
     display: flex;
@@ -74,7 +74,8 @@ body{
     justify-content: flex-start;
     align-items: flex-end;
 
-    transition: left 2s;
+    transition: 1s;
+    transition-timing-function: ease-out;
     background: transparent;
 }
 
@@ -100,6 +101,7 @@ body{
 
 .normalVideoPlayer{
     margin-left: 2.5vh;
+    position: relative;
 }
 
 .normalVideoPlayer > iframe{
@@ -162,8 +164,28 @@ body{
     left: 32vh;
     width: 10px;
     bottom: 0;
-    height: 22vh;
+    height: 21.6vh;
     background: var(--color3);
     transform-origin: left bottom;
     transform: skewY(-45deg);
+}
+
+
+.scrollButton{
+    min-width: 50px;
+    min-height: 50px;
+    position: absolute;
+    background: rgba(255,255,255,0.2);
+    width: 10vh;
+    height: 10vh;
+    padding: 2.5vh;
+    border-radius: 5vh;
+    bottom: 7.5vh;
+    box-shadow: 0px 0px 10px rgba(255,255,255,0.3);
+
+    top: 45vh;
+    margin: 0 5vh;
+    cursor: pointer;
+
+
 }

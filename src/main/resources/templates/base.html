@@ -9,11 +9,8 @@
 <body>
 
 <div class="page">
-    <div class="mainTitle">
-        <div class="actualTitle">
-            Concertbase
-        </div>
-    </div>
+    <div th:replace="fragments/mainTitle :: mainTitle"></div>
+
     <div class="videoPlayers">
         <div class="bigVideoPlayer">
             <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -35,7 +32,11 @@
             <iframe width="789" height="444" src="https://www.youtube.com/embed/iphcyNWFD10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="shortTitle">Filmik</div>
         </div>
+
     </div>
+
+    <img class="scrollButton" th:src="@{/icons/back.png}" style="left: 0" onclick="scrollVideo(10)">
+    <img class="scrollButton" th:src="@{/icons/next.png}" style="right: 0" onclick="scrollVideo(-10)">
 
 </div>
 
@@ -53,10 +54,6 @@
 
 
 <script type="text/javascript">
-    function removeTransition(element){
-        element.style.transition = null;
-    }
-
     function changePosition(element){
         element.style.left = "20vw";
     }
@@ -64,8 +61,38 @@
     window.onload = function() {
         element = document.getElementsByClassName("videoPlayers")[0];
         setTimeout(changePosition(element), 5000);
-        setTimeout(removeTransition(element), 10000);
     };
+
+    function scrollVideo(value) {
+        let element = document.getElementsByClassName("videoPlayers")[0];
+        let change_value = parseInt(value);
+
+
+        let okienko = element.getBoundingClientRect();
+        if (change_value < 0){
+            if(okienko.right < 0.9 * screen.width){
+                console.log("can't scroll any more to right");
+            }
+            else{
+                let temp_string = element.style.left;
+                let current_value = parseInt(temp_string.slice(0,-2)) + change_value;
+                element.style.left = current_value + "vw";
+            }
+        }
+        else{
+            if(okienko.left > 0.1 * screen.width){
+                console.log("can't scroll any more to left");
+            }
+            else{
+                let temp_string = element.style.left;
+                let current_value = parseInt(temp_string.slice(0,-2)) + change_value;
+                element.style.left = current_value + "vw";
+            }
+        }
+
+
+    }
+
 </script>
 </body>
 </html>
