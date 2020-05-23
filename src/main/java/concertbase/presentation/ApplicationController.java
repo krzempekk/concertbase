@@ -1,6 +1,7 @@
 package concertbase.presentation;
 
 import concertbase.model.Concert;
+import concertbase.model.LiveConcert;
 import concertbase.service.ConcertService;
 import concertbase.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,7 @@ public class ApplicationController {
         VerySimpleSearchForm searchForm,
         Model model
     ){
-        ArrayList<String> results = new ArrayList<>();
+        List<Concert> results = new ArrayList<>();
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
         return "index";
@@ -106,15 +107,21 @@ public class ApplicationController {
         if(bindingResult.hasErrors()) {
             System.out.println("Error: przy wyszukiwaniu prostej formy w index.html");
         }
-        searchForm.getSearchString();
-                // TUTAJ ANIA ^
+
+        List<Concert> results = new ArrayList<>();
 
         Concert foundConcert = this.concertService.findByName(searchForm.getSearchString());
-        ArrayList<String> results = new ArrayList<>();
-        results.add("hej");
+        if (foundConcert == null){
+            return "index";
+        }
+        results.add(foundConcert);
+
+        Concert temp_mockup = new LiveConcert();
+        temp_mockup.setName(searchForm.getSearchString());
+        results.add(temp_mockup);
+
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
-
 
         return "index";
     }
