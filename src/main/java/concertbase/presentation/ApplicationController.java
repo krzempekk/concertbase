@@ -2,6 +2,7 @@ package concertbase.presentation;
 
 import concertbase.model.Concert;
 import concertbase.model.LiveConcert;
+import concertbase.model.StreamedConcert;
 import concertbase.model.Performance;
 import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
@@ -22,6 +23,7 @@ import javax.management.InvalidAttributeValueException;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -134,8 +136,10 @@ public class ApplicationController {
         Model model
     ){
         List<Concert> results = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
+        model.addAttribute("errors", errors);
         return "index";
     }
 
@@ -150,15 +154,20 @@ public class ApplicationController {
         }
 
         List<Concert> results = new ArrayList<>();
-
+        List<String> errors = new ArrayList<>();
+/*
         Concert foundConcert = this.concertService.findByName(searchForm.getSearchString());
         if (foundConcert == null){
+            errors.add(String.format("Brak wyników dla zapytania: %s", searchForm.getSearchString() ));
+            model.addAttribute("results", results);
+            model.addAttribute("errors", errors);
             return "index";
         }
+
         results.add(foundConcert);
 
-        Concert temp_mockup = new LiveConcert();
-        temp_mockup.setName(searchForm.getSearchString());
+*/
+        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
 
         model.addAttribute("searchForm", searchForm);

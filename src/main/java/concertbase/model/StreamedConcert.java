@@ -1,5 +1,7 @@
 package concertbase.model;
 
+import concertbase.util.ConcertType;
+
 import javax.persistence.Entity;
 import java.util.Date;
 
@@ -9,8 +11,8 @@ public class StreamedConcert extends Concert {
 
     public StreamedConcert() {}
 
-    public StreamedConcert(String name, Date date, String organizerWebsite, String website){
-        super(name, date, organizerWebsite);
+    public StreamedConcert(String name, Date date, String organizerWebsite, ConcertType type, String website){
+        super(name, date, organizerWebsite, type);
         this.website = website;
     }
 
@@ -20,5 +22,9 @@ public class StreamedConcert extends Concert {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public ConcertType getType(){
+        return super.getType();
     }
 }

@@ -61,28 +61,28 @@
     <!-- TODO wyświetlać ładnie wyniki -->
     <div class="queryResult" th:if="${results.size() > 0}">
         <div th:each="result : ${results}">
+            <div th:text="${result.getDate()}"/>
+            <div th:text="${result.getName()}"/>
+            <div th:text="${result.getOrganizerWebsite()}"/>
 
-            <div th:text="${result.getName()}"></div>
-            <div th:text="${result.getName()}"></div>
-            <div th:text="${result.getName()}"></div>
+            <div th:if="${result.getType() == T(concertbase.util.ConcertType).STREAMED}">
+                Link: <a th:text="${result.getWebsite()}">tutaj</a>
+            </div>
+            <div th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
+                Lista miejsc:
+            </div>
 
-            <!--        <div th:text="${result.getDate()}"/></div>          -->
+
         </div>
-
     </div>
 
 
-
 </div>
-
 
 <div class="page">
     tetetetetetdsfdsfdsfg
 </div>
 
-<div class="page">
-    sfasdfasdf
-</div>
 
 
 
