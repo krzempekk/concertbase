@@ -69,10 +69,13 @@
                 Link: <a th:text="${result.getWebsite()}">tutaj</a>
             </div>
             <div th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
-                Lista miejsc:
+                Place:
+                <div th:text="${result.getVenue().name}"/>
+                <div th:text="${result.getVenue().city}"/>
+                <div th:text="${result.getVenue().street}"/>
+                <div th:text="${result.getVenue().streetNumber}"/>
+                <div th:text="${result.getVenue().zipCode}"/>
             </div>
-
-
         </div>
     </div>
 
