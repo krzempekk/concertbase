@@ -59,9 +59,15 @@
 
 
     <!-- TODO wyświetlać ładnie wyniki -->
-    <div class="queryResult" th:if="${results.size() != 0}">
-        <div th:each="result: ${results}">
-            <div th:text="${result}"/></div>
+    <div class="queryResult" th:if="${results.size() > 0}">
+        <div th:each="result : ${results}">
+
+
+
+
+            <div th:text="${result.getName()}"/></div>
+
+            <!--        <div th:text="${result.getDate()}"/></div>          -->
         </div>
 
     </div>
