@@ -2,12 +2,16 @@ package concertbase.service;
 
 import concertbase.model.*;
 import concertbase.persistence.*;
+import concertbase.util.ConcertType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -66,13 +70,22 @@ public class ConcertService {
     }
 
 
-    public List<Concert> findByLiveByCriteria(String artistName, String subgenreName, String city, String dateFrom, String dateTo) {
+    public List<Concert> findByLiveByCriteria(String artistName, String subgenreName, String city, String dateFrom, String dateTo, ConcertType type) {
         return concertRepository.findAll(new Specification<>() {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-
+                switch((type!=null) ? type : ConcertType.ANY){
+                    case LIVE:
+                        predicates.add(criteriaBuilder.equal(root.type(), LiveConcert.class));
+                        break;
+                    case STREAMED:
+                        predicates.add(criteriaBuilder.equal(root.type(), StreamedConcert.class));
+                        break;
+                    default:
+                        break;
+                }
                 if(artistName != null) {
                     List<Long> artistPerformancesIds = performanceRepository.findByArtist_Name(artistName)
                         .stream()
@@ -121,11 +134,11 @@ public class ConcertService {
                 }
 
                 if(city != null){
-                    Root newRoot = criteriaBuilder.treat(root, LiveConcert.class);
+                    Root liveRoot = criteriaBuilder.treat(root, LiveConcert.class);
                     List<Venue> cityVenues = venueRepository.findByCity(city);
                     System.out.println("Venues");
                     cityVenues.forEach(System.out::println);
-                    predicates.add(newRoot.get("venue").in(cityVenues));
+                    predicates.add(liveRoot.get("venue").in(cityVenues));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
