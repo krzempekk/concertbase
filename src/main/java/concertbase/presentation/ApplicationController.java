@@ -1,6 +1,5 @@
 package concertbase.presentation;
 
-import concertbase.model.Concert;
 import concertbase.service.ConcertService;
 import concertbase.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
