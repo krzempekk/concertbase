@@ -39,6 +39,9 @@ public class ConcertService {
     @Autowired
     PerformanceRepository performanceRepository;
 
+    @Autowired
+    SubgenreRepository subgenreRepository;
+
 
     public void findConcertByGenre(String subgenreName) {
         List<Artist> artistList = artistRepository.findAllBySubgenres_Name(subgenreName);
@@ -48,7 +51,7 @@ public class ConcertService {
         }
     }
 
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public void addLiveConcert(String name, String date, String organizerWebsite, String venueName, String city) throws ParseException {
         Venue venue = this.venueRepository.findByNameAndCity(venueName, city).get(0);
@@ -65,35 +68,38 @@ public class ConcertService {
     }
 
 
-    public List<Concert> findByLiveByCriteria(Artist artist, Subgenre subgenre, String city, String dateFrom, String dateTo){
+    public List<Concert> findByLiveByCriteria(String artistName, String subgenreName, String city, String dateFrom, String dateTo) {
         return concertRepository.findAll(new Specification<>() {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                if(artist != null) {
-                    List<Long> artistPerformancesIds = performanceRepository.findByArtist(artist)
+                if(artistName != null) {
+                    List<Long> artistPerformancesIds = performanceRepository.findByArtist_Name(artistName)
                         .stream()
                         .map(performance -> performance.getConcert().getId())
                         .collect(Collectors.toList());
 
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
-                if(city != null){
-                    List<Long> cityVenues = venueRepository.findByCity(city)
-                            .stream()
-                            .map(Venue::getId)
-                            .collect(Collectors.toList());
-                    predicates.add(root.get("VENUE_FK").in(cityVenues));
-                }
+
+//                if(city != null) {
+//                    List<Long> cityVenues = venueRepository.findByCity(city)
+//                            .stream()
+//                            .map(Venue::getId)
+//                            .collect(Collectors.toList());
+//
+//
+//                    predicates.add(root.get("VENUE_FK").in(cityVenues));
+//                }
 
                 if(dateFrom != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateAfter(parseDate(dateFrom))
-                                .stream()
-                                .map(Concert::getId)
-                                .collect(Collectors.toList());
+                            .stream()
+                            .map(Concert::getId)
+                            .collect(Collectors.toList());
 
                         predicates.add(root.get("id").in(concertIds));
                     } catch (ParseException e) {
@@ -104,9 +110,9 @@ public class ConcertService {
                 if(dateTo != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateBefore(parseDate(dateTo))
-                                .stream()
-                                .map(Concert::getId)
-                                .collect(Collectors.toList());
+                            .stream()
+                            .map(Concert::getId)
+                            .collect(Collectors.toList());
 
                         predicates.add(root.get("id").in(concertIds));
                     } catch (ParseException e) {
@@ -119,16 +125,6 @@ public class ConcertService {
 
         });
     }
-
-
-
-//    public List<Concert> findByCriteria(String artistName, String subgerneName, String city, String fromDate, String toDate){
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//
-//    }
-
-
 
 
 }

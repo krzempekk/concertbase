@@ -59,12 +59,13 @@ public class ConcertbaseApplication {
 			genreService.addSubgenre("Orthodox black metal", "Metal");
 			genreService.addSubgenre("Prog metal", "Metal");
 			genreService.addSubgenre("Thrash metal", "Metal");
-			genreService.addSubgenre("Speed metal", "Metal");
+			genreService.addSubgenre("Groove metal", "Metal");
 
 			artistService.addArtist("Katatonia", new String[] {"Doom metal", "Prog metal"});
 			artistService.addArtist("Kreator", "Thrash metal");
-			artistService.addArtist("Lamb of God", "Speed metal");
+			artistService.addArtist("Lamb of God", "Groove metal");
 			artistService.addArtist("Batushka", "Orthodox black metal");
+			artistService.addArtist("Batushka Grubego", "Orthodox black metal");
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			Venue venue = new Venue("Studio", "Krakow", "Polska", "Budryka", 2, "666-666" );
@@ -89,15 +90,15 @@ public class ConcertbaseApplication {
 //			}
 
 //			concertService.findConcertByGenre("Gothic metal");
-			Artist searchedArtist = artistRepository.findByName("Lamb of God");
-			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
-			if(performances!= null) {
-				System.out.println("Performances: ");
-				performances.forEach(System.out::println);
-			}
+//			Artist searchedArtist = artistRepository.findByName("Lamb of God");
+//			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
+//			if(performances!= null) {
+//				System.out.println("Performances: ");
+//				performances.forEach(System.out::println);
+//			}
 
-			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, "Krakow", "2019-04-01", null);
-			System.out.println("Concerts with artist " + searchedArtist.getName());
+			List<Concert> foundconcerts = concertService.findByLiveByCriteria("Batushka Grubego", null, null, "2019-04-01", null);
+			System.out.println("Concerts with artist Batushka Grubego");
 			if(foundconcerts != null) {
 				foundconcerts.forEach(System.out::println);
 			} else {
