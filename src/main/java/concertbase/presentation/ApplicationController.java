@@ -104,15 +104,22 @@ public class ApplicationController {
 
     @GetMapping("/")
     public String index(
-
+        VerySimpleSearchForm searchForm,
+        Model model
     ){
+        model.addAttribute("searchForm", searchForm);
         return "index";
     }
 
     @PostMapping("/")
     public String searchSubmit(
-        String search
+        @Valid VerySimpleSearchForm searchForm
     ){
+
+        System.out.println(searchForm.getSearchString());
+
+
+
         return "index";
     }
 

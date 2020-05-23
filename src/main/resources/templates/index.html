@@ -38,10 +38,13 @@
     <img class="scrollButton" th:src="@{/icons/back.png}" style="left: 0" onclick="scrollVideo(10)">
     <img class="scrollButton" th:src="@{/icons/next.png}" style="right: 0" onclick="scrollVideo(-10)">
 
-    <form class="searchPage" th:action="@{/}" th:object="${search}" method="post">
+
+
+    <form action="#" class="searchPage" th:action="@{/}" th:object="${searchForm}" method="post">
         <div class="searchTitle">Search for concert</div>
         <div class="searchInputs">
-            <input class="searchBar" type="text" name="searchBar" placeholder="Concert name">
+            <input class="searchBar" type="text" name="searchBar" placeholder="Concert name" th:field="*{searchString}">
+            <span th:if="${#fields.hasErrors('searchString')}" th:errors="*{searchString}"></span>
 
             <div class="buttons">
                 <input class="searchButton" type="submit" value="Search">
@@ -54,6 +57,8 @@
         </div>
 
     </form>
+
+
 
 </div>
 
