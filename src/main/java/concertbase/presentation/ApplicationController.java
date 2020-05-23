@@ -115,7 +115,7 @@ public class ApplicationController {
             return "concerts";
         }
 
-        List<Concert> concerts = concertService.findByLiveByCriteria(
+        List<Concert> concerts = concertService.findByCriteria(
             searchForm.getArtistName(),
             searchForm.getSubgenreName(),
             searchForm.getCity(),
