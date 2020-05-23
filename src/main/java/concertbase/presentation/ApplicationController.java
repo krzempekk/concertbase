@@ -148,7 +148,7 @@ public class ApplicationController {
 
         List<Concert> results = new ArrayList<>();
         List<String> errors = new ArrayList<>();
-/*                                  // TODO to odkomentować, jeśli w bazie będą już koncerty do przeszukania
+
         Concert foundConcert = this.concertService.findByName(searchForm.getSearchString());
         if (foundConcert == null){
             errors.add(String.format("Brak wyników dla zapytania: %s", searchForm.getSearchString() ));
@@ -159,7 +159,7 @@ public class ApplicationController {
 
         results.add(foundConcert);
 
-*/
+
         Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
         Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
