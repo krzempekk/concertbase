@@ -1,9 +1,6 @@
 package concertbase.presentation;
 
-import concertbase.model.Concert;
-import concertbase.model.LiveConcert;
-import concertbase.model.StreamedConcert;
-import concertbase.model.Performance;
+import concertbase.model.*;
 import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
 import concertbase.service.VenueService;
@@ -169,6 +166,8 @@ public class ApplicationController {
 */
         Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
+        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
+        results.add(temp_mockup2);
 
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
