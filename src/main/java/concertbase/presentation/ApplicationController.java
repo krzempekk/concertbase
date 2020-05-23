@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class HelloController {
+public class ApplicationController {
 
 //    @RequestMapping("/")
 //    public String index() {

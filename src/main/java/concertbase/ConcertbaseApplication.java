@@ -96,7 +96,7 @@ public class ConcertbaseApplication {
 				performances.forEach(System.out::println);
 			}
 
-			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, null, null, null);
+			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, null, "2019-04-01", null);
 			System.out.println("Concerts with artist " + searchedArtist.getName());
 			if(foundconcerts != null) {
 				foundconcerts.forEach(System.out::println);
