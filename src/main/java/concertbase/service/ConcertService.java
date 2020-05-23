@@ -70,16 +70,12 @@ public class ConcertService {
 
             @Override
             public Predicate toPredicate(Root<Concert> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                CriteriaBuilder.In<Long> inClause = criteriaBuilder.in(root.get("id"));
+                List<Long> artistPerformancesIds = performanceRepository.findByArtist(artist)
+                    .stream()
+                    .map(performance -> performance.getConcert().getId())
+                    .collect(Collectors.toList());
 
-                List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
-                artistPerformances.forEach(System.out::println);
-
-                for(Performance performance: artistPerformances) {
-                    inClause.value(performance.getConcert().getId());
-                }
-
-                return inClause;
+                return root.get("id").in(artistPerformancesIds);
 
 
 //                List<Predicate> predicates = new ArrayList<>();
