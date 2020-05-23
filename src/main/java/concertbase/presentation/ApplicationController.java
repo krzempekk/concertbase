@@ -209,11 +209,9 @@ public class ApplicationController {
             );
         }
         catch (Exception e){
-            results = null;
+            results = new ArrayList<>();
         }
-
-        if(results == null) results = new ArrayList<>();    //TODO: delete this line if mockups are no longer added
-
+        
         Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
         Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
