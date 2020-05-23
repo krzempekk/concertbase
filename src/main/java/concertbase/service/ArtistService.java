@@ -49,6 +49,14 @@ public class ArtistService {
         return artist;
     }
 
+    public Performance addPerformance(String artistName, Concert concert, String startTime, String endTime) {
+        Artist artist = artistRepository.findByName(artistName);
+        if(artist == null) artist = addArtist(artistName, "");
+        Performance performance = new Performance(artist, concert, "headliner", LocalTime.parse(startTime), LocalTime.parse(endTime));
+        performanceRepository.save(performance);
+        return performance;
+    }
+
     public Performance addPerformance(String artistName, long concertId, String role, String startTime, String endTime){
         Optional<Concert> concertOpt = concertRepository.findById(concertId);
         if(concertOpt.isEmpty()) throw new IllegalArgumentException("No such concert");
@@ -57,6 +65,7 @@ public class ArtistService {
         performanceRepository.save(performance);
         return performance;
     }
+
 
     public Performance addPerformance(String artistName, long concertId){
         Optional<Concert> concertOpt = concertRepository.findById(concertId);

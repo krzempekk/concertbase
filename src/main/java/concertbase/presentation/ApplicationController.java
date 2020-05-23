@@ -3,7 +3,8 @@ package concertbase.presentation;
 import concertbase.model.Concert;
 import concertbase.model.LiveConcert;
 import concertbase.model.StreamedConcert;
-import concertbase.model.Venue;
+import concertbase.model.Performance;
+import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
 import concertbase.service.VenueService;
 import concertbase.util.ConcertType;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.management.InvalidAttributeValueException;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +52,9 @@ public class ApplicationController {
     @Autowired
     VenueService venueService;
 
+    @Autowired
+    ArtistService artistService;
+
 
     @GetMapping("/concerts/add")
     public String addConcertGet(
@@ -64,11 +70,25 @@ public class ApplicationController {
     public String addConcertPost(
         @Valid ConcertForm concertForm,
         BindingResult bindingResult
-    ) {
+    ) throws ParseException, InvalidAttributeValueException {
 
         if(bindingResult.hasErrors()) {
             return "concert-add";
         }
+
+        Concert concert = concertService.addLiveConcert(
+            concertForm.getName(),
+            concertForm.getDate(),
+            concertForm.getOrganizerWebsite(),
+            concertForm.getVenueId()
+        );
+
+        Performance performance = artistService.addPerformance(
+            concertForm.getArtistName(),
+            concert,
+            concertForm.getStartTime(),
+            concertForm.getEndTime()
+        );
 
         return "concerts";
     }
@@ -95,8 +115,16 @@ public class ApplicationController {
             return "concerts";
         }
 
-//        List<Concert> concerts = concertService.findByLiveByCriteria(artistName, subgenreName, city, dateFrom, dateTo);
-//        model.addAttribute("concerts", concerts);
+        List<Concert> concerts = concertService.findByLiveByCriteria(
+            searchForm.getArtistName(),
+            searchForm.getSubgenreName(),
+            searchForm.getCity(),
+            searchForm.getDateFrom(),
+            searchForm.getDateTo(),
+            ConcertType.ANY
+        );
+
+        model.addAttribute("concerts", concerts);
 
         return "concerts";
     }
@@ -141,8 +169,6 @@ public class ApplicationController {
 */
         Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
-        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
-        results.add(temp_mockup2);
 
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
