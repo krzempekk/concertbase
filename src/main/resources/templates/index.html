@@ -61,29 +61,23 @@
     <!-- TODO wyświetlać ładnie wyniki -->
     <div class="queryResult" th:if="${results.size() > 0}">
         <div th:each="result : ${results}">
+            <div th:text="${result.getDate()}"/>
+            <div th:text="${result.getName()}"/>
+            <div th:text="${result.getOrganizerWebsite()}"/>
+
+            <div th:if="${result instanceof T(LiveConcert)}">tete</div>
 
 
-
-
-            <div th:text="${result.getName()}"/></div>
-
-            <!--        <div th:text="${result.getDate()}"/></div>          -->
         </div>
-
     </div>
 
 
-
 </div>
-
 
 <div class="page">
     tetetetetetdsfdsfdsfg
 </div>
 
-<div class="page">
-    sfasdfasdf
-</div>
 
 
 
