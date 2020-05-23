@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface VenueRepository extends CrudRepository<Venue, Long> {
     List<Venue> findByNameAndCity(String name, String city);
-
+    List<Venue> findByCity(String City);
 }

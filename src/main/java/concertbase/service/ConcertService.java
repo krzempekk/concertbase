@@ -80,6 +80,13 @@ public class ConcertService {
 
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
+                if(city != null){
+                    List<Long> cityVenues = venueRepository.findByCity(city)
+                            .stream()
+                            .map(Venue::getId)
+                            .collect(Collectors.toList());
+                    predicates.add(root.get("VENUE_FK").in(cityVenues));
+                }
 
                 if(dateFrom != null) {
                     try {
