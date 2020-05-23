@@ -13,9 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +39,9 @@ public class ConcertService {
 
     @Autowired
     PerformanceRepository performanceRepository;
+
+    @Autowired
+    SubgenreRepository subgenreRepository;
 
 
     public void findConcertByGenre(String subgenreName) {
@@ -68,7 +69,7 @@ public class ConcertService {
     }
 
 
-    public List<Concert> findByLiveByCriteria(Artist artist, Subgenre subgenre, String city, String dateFrom, String dateTo){
+    public List<Concert> findByLiveByCriteria(Artist artist, String subgenreName, String city, String dateFrom, String dateTo){
         return concertRepository.findAll(new Specification<>() {
 
             @Override
@@ -83,7 +84,6 @@ public class ConcertService {
 
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
-
                 if(dateFrom != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateAfter(parseDate(dateFrom))
@@ -96,7 +96,6 @@ public class ConcertService {
                         e.printStackTrace();
                     }
                 }
-
                 if(dateTo != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateBefore(parseDate(dateTo))
@@ -109,6 +108,19 @@ public class ConcertService {
                         e.printStackTrace();
                     }
                 }
+                if(subgenreName != null){
+                    Subgenre subgenre = subgenreRepository.findByName(subgenreName);
+                    List<Artist> subgenreArtists = artistRepository.findBySubgenresContains(subgenre);
+                    Set<Performance> artistsPerformances = new HashSet<>();
+                    for(Artist subgenreAritst: subgenreArtists){
+                        artistsPerformances.addAll(performanceRepository.findByArtist(subgenreAritst));
+                    }
+                    List<Long> artistPerformancesIds = artistsPerformances
+                            .stream()
+                            .map(performance -> performance.getConcert().getId())
+                            .collect(Collectors.toList());
+                    predicates.add(root.get("id").in(artistPerformancesIds));
+                }
                 if(city != null){
                     Root newRoot = criteriaBuilder.treat(root, LiveConcert.class);
                     List<Venue> cityVenues = venueRepository.findByCity(city);
@@ -118,37 +130,10 @@ public class ConcertService {
                 }
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 
-//                List<Predicate> predicates = new ArrayList<>();
-//                List<String> artistPerformancesIds = null;
-//                if (artist != null) {
-//                    List<Performance> artistPerformances = performanceRepository.findByArtist(artist);
-//                    artistPerformances.forEach(System.out::println);
-//
-//                    artistPerformancesIds = artistPerformances
-//                            .stream()
-//                            .map(performance -> String.valueOf(performance.getConcert().getId()))
-//                            .collect(Collectors.toList());
-
-//                    if (artistPerformances != null) {
-//                        for (Performance performance : artistPerformances) {
-//                            predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), performance.getConcert().getId())));
-//                        }
-//                    }
-//                }
-//                return criteriaBuilder.isMember(root.get("id"), artistPerformancesIds);
-//                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
 
         });
     }
-
-
-
-//    public List<Concert> findByCriteria(String artistName, String subgerneName, String city, String fromDate, String toDate){
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//
-//    }
 
 
 
