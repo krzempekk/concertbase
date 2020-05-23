@@ -8,13 +8,10 @@ import concertbase.util.ConcertType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.management.InvalidAttributeValueException;
 import javax.validation.Valid;
@@ -198,16 +195,25 @@ public class ApplicationController {
         if(bindingResult.hasErrors()) {
             System.out.println("Error: przy zaawansowanym wyszukiwaniu w advancedSearch.html");
         }
-        /*
-        List<Concert> results = concertService.findByCriteria(  // TODO Kamil - ta funckja zwraca błędy
-                searchForm.getArtistName(),
-                searchForm.getSubgenreName(),
-                searchForm.getCity(),
-                searchForm.getDateFrom(),
-                searchForm.getDateTo(),
-                ConcertType.ANY
-        );*/
-        List<Concert> results = new ArrayList<>();
+
+
+        List<Concert> results;
+        try {
+                    results = concertService.findByCriteria(
+                    searchForm.getArtistName(),
+                    searchForm.getSubgenreName(),
+                    searchForm.getCity(),
+                    searchForm.getDateFrom(),
+                    searchForm.getDateTo(),
+                    ConcertType.ANY
+            );
+        }
+        catch (Exception e){
+            results = null;
+        }
+
+        if(results == null) results = new ArrayList<>();    //TODO: delete this line if mockups are no longer added
+
         Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
         results.add(temp_mockup);
         Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));

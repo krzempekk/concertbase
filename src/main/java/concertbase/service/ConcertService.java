@@ -102,7 +102,7 @@ public class ConcertService {
                     default:
                         break;
                 }
-                if(artistName != null) {
+                if(artistName != null && !artistName.equals("")) {
                     List<Long> artistPerformancesIds = performanceRepository.findByArtist_Name(artistName)
                         .stream()
                         .map(performance -> performance.getConcert().getId())
@@ -110,7 +110,7 @@ public class ConcertService {
 
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
-                if(dateFrom != null) {
+                if(dateFrom != null && !dateFrom.equals("")) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateAfter(parseDate(dateFrom))
                             .stream()
@@ -122,7 +122,7 @@ public class ConcertService {
                         e.printStackTrace();
                     }
                 }
-                if(dateTo != null) {
+                if(dateTo != null && !dateTo.equals("")) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateBefore(parseDate(dateTo))
                             .stream()
@@ -135,7 +135,7 @@ public class ConcertService {
                     }
                 }
 
-                if(subgenreName != null){
+                if(subgenreName != null && !subgenreName.equals("")){
                     Subgenre subgenre = subgenreRepository.findByName(subgenreName);
                     List<Artist> subgenreArtists = artistRepository.findBySubgenresContains(subgenre);
                     Set<Performance> artistsPerformances = new HashSet<>();
@@ -149,11 +149,10 @@ public class ConcertService {
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
 
-                if(city != null){
+                if(city != null && !city.equals("")){
                     Root liveRoot = criteriaBuilder.treat(root, LiveConcert.class);
                     List<Venue> cityVenues = venueRepository.findByCity(city);
                     System.out.println("Venues");
-                    cityVenues.forEach(System.out::println);
                     predicates.add(liveRoot.get("venue").in(cityVenues));
                 }
 
