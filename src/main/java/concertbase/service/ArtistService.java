@@ -1,6 +1,7 @@
 package concertbase.service;
 
 import concertbase.model.Artist;
+import concertbase.model.Concert;
 import concertbase.model.Performance;
 import concertbase.model.Subgenre;
 import concertbase.persistence.*;
@@ -44,9 +45,10 @@ public class ArtistService {
         return artist;
     }
 
-    public Performance addPerformance(String artistName, String concertName) {
-        Performance performance = new Performance(artistRepository.findByName(artistName), concertRepository.findByName(concertName), "headliner", null, null);
-
+    public Performance addPerformance(String artistName, Concert concert, String startTime, String endTime) {
+        Artist artist = artistRepository.findByName(artistName);
+        if(artist == null) artist = addArtist(artistName, "");
+        Performance performance = new Performance(artist, concert, "headliner", LocalTime.parse(startTime), LocalTime.parse(endTime));
         performanceRepository.save(performance);
         return performance;
     }
@@ -56,10 +58,4 @@ public class ArtistService {
         performanceRepository.save(performance);
         return performance;
     }
-
-
-
-
-
-
 }

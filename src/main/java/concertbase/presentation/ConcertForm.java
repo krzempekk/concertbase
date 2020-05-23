@@ -3,7 +3,6 @@ package concertbase.presentation;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class ConcertForm {
@@ -82,8 +81,8 @@ public class ConcertForm {
         this.endTime = endTime;
     }
 
-    public String getVenueId() {
-        return venueId;
+    public Long getVenueId() {
+        return Long.valueOf(venueId);
     }
 
     public void setVenueId(String venueId) {
