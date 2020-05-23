@@ -44,16 +44,6 @@ public class ApplicationController {
     @Autowired
     VenueService venueService;
 
-    @GetMapping("/concerts")
-    public String concerts(
-//        Model model
-    ) {
-//        String[] genres = {"Heavy metal", "Thrash metal", "Black metal"};
-//        model.addAttribute("genres", genres);
-//        model.addAttribute("genre", new Genre());
-
-        return "concerts";
-    }
 
     @GetMapping("/concerts/add")
     public String addConcertGet(
@@ -78,18 +68,16 @@ public class ApplicationController {
         return "concerts";
     }
 
-    @PostMapping("/concerts")
+    @PostMapping("/concerts/find")
     public String findConcerts(
-        @RequestBody MultiValueMap<String, String> formData,
+        SearchForm searchForm,
+        BindingResult bindingResult,
         Model model
     ) {
-        String artistName, subgenreName, city, dateFrom, dateTo;
 
-        artistName = formData.getFirst("artist");
-        subgenreName = formData.getFirst("subgenre");
-        city = formData.getFirst("city");
-        dateFrom = formData.getFirst("dateFrom");
-        dateTo = formData.getFirst("dateTo");
+        if(bindingResult.hasErrors()) {
+            return "concerts";
+        }
 
 //        List<Concert> concerts = concertService.findByLiveByCriteria(artistName, subgenreName, city, dateFrom, dateTo);
 //        model.addAttribute("concerts", concerts);
