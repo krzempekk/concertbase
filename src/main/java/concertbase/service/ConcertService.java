@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.criteria.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,17 +81,6 @@ public class ConcertService {
 
                     predicates.add(root.get("id").in(artistPerformancesIds));
                 }
-
-//                if(city != null) {
-//                    List<Long> cityVenues = venueRepository.findByCity(city)
-//                            .stream()
-//                            .map(Venue::getId)
-//                            .collect(Collectors.toList());
-//
-//
-//                    predicates.add(root.get("VENUE_FK").in(cityVenues));
-//                }
-
                 if(dateFrom != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateAfter(parseDate(dateFrom))
@@ -106,7 +93,6 @@ public class ConcertService {
                         e.printStackTrace();
                     }
                 }
-
                 if(dateTo != null) {
                     try {
                         List<Long> concertIds = concertRepository.findAllByDateBefore(parseDate(dateTo))
@@ -118,6 +104,28 @@ public class ConcertService {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                }
+
+                if(subgenreName != null){
+                    Subgenre subgenre = subgenreRepository.findByName(subgenreName);
+                    List<Artist> subgenreArtists = artistRepository.findBySubgenresContains(subgenre);
+                    Set<Performance> artistsPerformances = new HashSet<>();
+                    for(Artist subgenreAritst: subgenreArtists){
+                        artistsPerformances.addAll(performanceRepository.findByArtist(subgenreAritst));
+                    }
+                    List<Long> artistPerformancesIds = artistsPerformances
+                            .stream()
+                            .map(performance -> performance.getConcert().getId())
+                            .collect(Collectors.toList());
+                    predicates.add(root.get("id").in(artistPerformancesIds));
+                }
+
+                if(city != null){
+                    Root newRoot = criteriaBuilder.treat(root, LiveConcert.class);
+                    List<Venue> cityVenues = venueRepository.findByCity(city);
+                    System.out.println("Venues");
+                    cityVenues.forEach(System.out::println);
+                    predicates.add(newRoot.get("venue").in(cityVenues));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
