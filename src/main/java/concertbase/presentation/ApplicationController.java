@@ -111,10 +111,10 @@ public class ApplicationController {
         BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()) {
-            System.out.println("ERROR TU");
+            System.out.println("Error: przy wyszukiwaniu prostej formy w index.html");
         }
-
-        System.out.println(searchForm.getSearchString());
+        searchForm.getSearchString();
+                // TUTAJ ANIA ^
 
 
 
