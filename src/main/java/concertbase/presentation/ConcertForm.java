@@ -1,29 +1,37 @@
 package concertbase.presentation;
 
+import org.hibernate.validator.constraints.URL;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class ConcertForm {
     @NotEmpty(message = "Name may not be empty")
     private String name;
 
     @NotEmpty(message = "Date may not be empty")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Date not in valid format")
     private String date;
 
     @NotEmpty(message = "Organizer website may not be empty")
+    @URL(message = "This is not a valid URL")
     private String organizerWebsite;
 
     @NotEmpty(message = "Artist name may not be empty")
     private String artistName;
 
     @NotEmpty(message = "Start time may not be empty")
+    @Pattern(regexp = "\\d{2}:\\d{2}", message = "Start time not in valid format")
     private String startTime;
 
     @NotEmpty(message = "End time may not be empty")
+    @Pattern(regexp = "\\d{2}:\\d{2}", message = "End time not in valid format")
     private String endTime;
 
     private String venueId;
 
+    @URL(message = "This is not a valid URL")
     private String website;
 
     public String getName() {
