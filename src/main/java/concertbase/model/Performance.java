@@ -28,13 +28,30 @@ public class Performance {
 
     public Performance(Artist artist, Concert concert, String role, LocalTime startTime, LocalTime endTime) {
         this.artist = artist;
+        artist.addPerformance(this);
+
         this.concert = concert;
+        concert.addPerformance(this);
         this.role = role;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Concert getConcert() {
-        return concert;
+    public Artist getArtist() { return artist; }
+
+    public void setArtist(Artist artist) {
+        if(this.artist != artist) {
+            this.artist = artist;
+            artist.addPerformance(this);
+        }
+    }
+
+    public Concert getConcert() { return concert; }
+
+    public void setConcert(Concert concert) {
+        if(this.concert != concert) {
+            this.concert = concert;
+            concert.addPerformance(this);
+        }
     }
 }
