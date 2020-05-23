@@ -103,7 +103,7 @@ public class ConcertService {
                         break;
                 }
                 if(artistName != null && !artistName.equals("")) {
-                    List<Long> artistPerformancesIds = performanceRepository.findByArtist_Name(artistName)
+                    List<Long> artistPerformancesIds = performanceRepository.findByArtist_NameIgnoreCase(artistName)
                         .stream()
                         .map(performance -> performance.getConcert().getId())
                         .collect(Collectors.toList());
@@ -136,7 +136,7 @@ public class ConcertService {
                 }
 
                 if(subgenreName != null && !subgenreName.equals("")){
-                    Subgenre subgenre = subgenreRepository.findByName(subgenreName);
+                    Subgenre subgenre = subgenreRepository.findByNameIgnoreCase(subgenreName);
                     List<Artist> subgenreArtists = artistRepository.findBySubgenresContains(subgenre);
                     Set<Performance> artistsPerformances = new HashSet<>();
                     for(Artist subgenreAritst: subgenreArtists){
@@ -151,7 +151,7 @@ public class ConcertService {
 
                 if(city != null && !city.equals("")){
                     Root liveRoot = criteriaBuilder.treat(root, LiveConcert.class);
-                    List<Venue> cityVenues = venueRepository.findByCity(city);
+                    List<Venue> cityVenues = venueRepository.findByCityIgnoreCase(city);
                     System.out.println("Venues");
                     predicates.add(liveRoot.get("venue").in(cityVenues));
                 }

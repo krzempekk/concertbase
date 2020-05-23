@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VenueRepository extends CrudRepository<Venue, Long> {
     Venue findByNameAndCity(String name, String city);
-    List<Venue> findByCity(String City);
+    List<Venue> findByCityIgnoreCase(String City);
     List<Venue> findAll();
     Venue findById(long venueId);
 
