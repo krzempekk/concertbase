@@ -61,7 +61,7 @@ public class ApplicationController {
         @Valid ConcertForm concertForm,
         BindingResult bindingResult
     ) {
-        System.out.println(concertForm.getArtistName());
+
         if(bindingResult.hasErrors()) {
             return "concert-add";
         }
@@ -69,8 +69,19 @@ public class ApplicationController {
         return "concerts";
     }
 
+    @GetMapping("/concerts/find")
+    public String findConcertsGet(
+        SearchForm searchForm,
+        Model model
+    ) {
+
+        model.addAttribute("searchForm", searchForm);
+
+        return "concerts";
+    }
+
     @PostMapping("/concerts/find")
-    public String findConcerts(
+    public String findConcertsPost(
         SearchForm searchForm,
         BindingResult bindingResult,
         Model model
