@@ -85,11 +85,12 @@ public class Venue {
         return (int) this.id * 2137 + this.streetNumber;
     }
 
-    //    public void addLiveConcert(LiveConcert liveConcert){
-//        this.liveConcerts.add(liveConcert);
-//    }
-//
+    public void addLiveConcert(LiveConcert liveConcert){
+        this.liveConcerts.add(liveConcert);
+    }
+
 //    public void removeLiveConcert(LiveConcert liveConcert){
 //        this.liveConcerts.remove(liveConcert);
 //    }
+
 }
