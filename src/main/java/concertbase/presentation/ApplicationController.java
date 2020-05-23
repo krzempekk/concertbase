@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -101,14 +102,17 @@ public class ApplicationController {
         VerySimpleSearchForm searchForm,
         Model model
     ){
+        ArrayList<String> results = new ArrayList<>();
         model.addAttribute("searchForm", searchForm);
+        model.addAttribute("results", results);
         return "index";
     }
 
     @PostMapping("/")
     public String searchSubmit(
         @Valid @ModelAttribute("searchForm") VerySimpleSearchForm searchForm,
-        BindingResult bindingResult
+        BindingResult bindingResult,
+        Model model
     ){
         if(bindingResult.hasErrors()) {
             System.out.println("Error: przy wyszukiwaniu prostej formy w index.html");
@@ -116,6 +120,10 @@ public class ApplicationController {
         searchForm.getSearchString();
                 // TUTAJ ANIA ^
 
+        ArrayList<String> results = new ArrayList<>();
+        results.add("hej");
+        model.addAttribute("searchForm", searchForm);
+        model.addAttribute("results", results);
 
 
         return "index";
