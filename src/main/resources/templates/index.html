@@ -58,6 +58,15 @@
     </form>
 
 
+    <!-- TODO wyświetlać ładnie wyniki -->
+    <div class="queryResult" th:if="${results.size() != 0}">
+        <div th:each="result: ${results}">
+            <div th:text="${result}"/></div>
+        </div>
+
+    </div>
+
+
 
 </div>
 
