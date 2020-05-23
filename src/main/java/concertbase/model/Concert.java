@@ -45,6 +45,8 @@ public abstract class Concert implements Comparable {
         return performances;
     }
 
+    public Date getDate() {return this.date; }
+
     public void addPerformance(Performance performance) {
         if(!this.performances.contains(performance)) {
             this.performances.add(performance);
