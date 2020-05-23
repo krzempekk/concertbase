@@ -163,9 +163,6 @@ public class ConcertService {
         });
     }
 
-    public void printVenueConcerts(){
-
-    }
 
     public Concert findByName(String name){ return this.concertRepository.findByName(name); }
 
