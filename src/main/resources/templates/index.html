@@ -39,7 +39,7 @@
 
 
 
-    <form action="#" class="searchPage" th:action="@{/}" th:object="${searchForm}" method="post">
+    <form action="#" class="searchPage" id="searchPage" th:action="@{/}" th:object="${searchForm}" method="post">
         <div class="searchTitle">Search for concert</div>
         <div class="searchInputs">
             <input class="searchBar" type="text" name="searchBar" placeholder="Concert name" th:field="*{searchString}">
@@ -60,19 +60,24 @@
 
     <!-- TODO wyświetlać ładnie wyniki -->
     <div class="queryResult" th:if="${results.size() > 0}">
-        <div th:each="result : ${results}">
+        <div class="searchTitle">Search results</div>
+
+        <div class="queriedConcert" th:each="result : ${results}">
             <div th:text="${result.getDate()}"/>
-            <div th:text="${result.getName()}"/>
-            <div th:text="${result.getOrganizerWebsite()}"/>
+            <div class="concertTitle" th:text="${result.getName()}"/>
+            Organisator website: <a th:href="@{${result.getOrganizerWebsite()}}" th:text="${result.getOrganizerWebsite()}"/>
 
-            <div th:if="${result.getType() == T(concertbase.util.ConcertType).STREAMED}">
-                Link: <a th:text="${result.getWebsite()}">tutaj</a>
+            <div class="sectionRight streamed" th:if="${result.getType() == T(concertbase.util.ConcertType).STREAMED}">
+                Stream link: <a th:href="@{${result.getWebsite()}}" th:text="${result.getWebsite()}"/>
             </div>
-            <div th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
-                Lista miejsc:
+            <div class="sectionRight live" th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
+                Place:
+                <div th:text="${result.getVenue().name}"/>
+                <div th:text="${result.getVenue().city}"/>
+                <div th:text="${result.getVenue().street}"/>
+                <div th:text="${result.getVenue().streetNumber}"/>
+                <div th:text="${result.getVenue().zipCode}"/>
             </div>
-
-
         </div>
     </div>
 
