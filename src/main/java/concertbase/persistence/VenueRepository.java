@@ -10,4 +10,5 @@ public interface VenueRepository extends CrudRepository<Venue, Long> {
     List<Venue> findByCity(String City);
     List<Venue> findAll();
     Venue findById(long venueId);
+
 }

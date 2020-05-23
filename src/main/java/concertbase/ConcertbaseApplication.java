@@ -54,7 +54,7 @@ public class ConcertbaseApplication {
 
 
 			Venue venue = venueRepository.findByNameAndCity("Studio", "Kraków");
-
+//			System.out.println(venue.getConcerts());
 		};
 	}
 }
