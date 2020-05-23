@@ -1,24 +1,25 @@
 package concertbase.presentation;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class ConcertForm {
-    @NotNull
+    @NotEmpty(message = "Name may not be empty")
     private String name;
 
-    @NotNull
+    @NotEmpty(message = "Date may not be empty")
     private String date;
 
-    @NotNull
+    @NotEmpty(message = "Organizer website may not be empty")
     private String organizerWebsite;
 
-    @NotNull
+    @NotEmpty(message = "Artist name may not be empty")
     private String artistName;
 
-    @NotNull
+    @NotEmpty(message = "Start time may not be empty")
     private String startTime;
 
-    @NotNull
+    @NotEmpty(message = "End time may not be empty")
     private String endTime;
 
     private long venueId;

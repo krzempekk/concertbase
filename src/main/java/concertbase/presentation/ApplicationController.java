@@ -67,6 +67,7 @@ public class ApplicationController {
         @Valid ConcertForm concertForm,
         BindingResult bindingResult
     ) {
+        System.out.println(concertForm.getArtistName());
         if(bindingResult.hasErrors()) {
             return "concert-add";
         }
@@ -87,8 +88,8 @@ public class ApplicationController {
         dateFrom = formData.getFirst("dateFrom");
         dateTo = formData.getFirst("dateTo");
 
-        List<Concert> concerts = concertService.findByLiveByCriteria(artistName, subgenreName, city, dateFrom, dateTo);
-        model.addAttribute("concerts", concerts);
+//        List<Concert> concerts = concertService.findByLiveByCriteria(artistName, subgenreName, city, dateFrom, dateTo);
+//        model.addAttribute("concerts", concerts);
 
         return "concerts";
     }

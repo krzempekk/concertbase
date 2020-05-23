@@ -11,16 +11,28 @@
 <!--    <h2 th:text="'Another value: ' + ${another}"></h2>-->
     <div th:replace="~{header :: navbar}"></div>
 
-    <main role="main" class="container">
-        <div th:each="genre: ${genres}">
-            <div th:text="${genre}"/>
-        </div>
+<!--    <main role="main" class="container">-->
+<!--        <div th:each="genre: ${genres}">-->
+<!--            <div th:text="${genre}"/>-->
+<!--        </div>-->
 
-        <form action="#" th:action="@{/concerts}" th:object="${genre}" method="post">
-            <input type="text" th:field="*{name}">
-            <input type="submit" value="Add genre"/>
-        </form>
-    </main>
+<!--        <form action="#" th:action="@{/concerts}" th:object="${genre}" method="post">-->
+<!--            <input type="text" th:field="*{name}">-->
+<!--            <input type="submit" value="Add genre"/>-->
+<!--        </form>-->
+<!--    </main>-->
+
+    <form method="post" action="/concerts">
+        <label>
+            Artist
+            <input type="text" name="artist"/>
+        </label>
+        <label>
+            City
+            <input type="text" name="city"/>
+        </label>
+        <button>Add</button>
+    </form>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
