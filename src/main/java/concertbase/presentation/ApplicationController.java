@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -95,15 +96,8 @@ public class ApplicationController {
     }
 
 
-    @GetMapping("/test")
-    public String test_base(
-
-    ){
-        return "index";
-    }
-
     @GetMapping("/")
-    public String index(
+    public String indexPage(
         VerySimpleSearchForm searchForm,
         Model model
     ){
@@ -113,8 +107,12 @@ public class ApplicationController {
 
     @PostMapping("/")
     public String searchSubmit(
-        @Valid VerySimpleSearchForm searchForm
+        @Valid @ModelAttribute("searchForm") VerySimpleSearchForm searchForm,
+        BindingResult bindingResult
     ){
+        if(bindingResult.hasErrors()) {
+            System.out.println("ERROR TU");
+        }
 
         System.out.println(searchForm.getSearchString());
 
