@@ -230,7 +230,7 @@ body{
 
 .searchInputs > .searchBar, .searchButton{
     height: 100%;
-    border: 2px solid var(--color4);
+    /*border: 2px solid var(--color4);*/
     border-radius: 2px;
     padding: 0.5vh 4vh;
     cursor: pointer;
@@ -265,5 +265,11 @@ body{
 .queryResult > .queriedConcert > .concertTitle{
     text-align: center;
     font-size: 30px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.sectionRight.live{
+    display: grid;
+    grid-template-columns: 4vw auto 5vw auto auto;
 }

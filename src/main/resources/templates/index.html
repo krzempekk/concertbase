@@ -73,10 +73,7 @@
             <div class="sectionRight live" th:if="${result.getType() == T(concertbase.util.ConcertType).LIVE}">
                 Place:
                 <div th:text="${result.getVenue().name}"/>
-                <div th:text="${result.getVenue().city}"/>
-                <div th:text="${result.getVenue().street}"/>
-                <div th:text="${result.getVenue().streetNumber}"/>
-                <div th:text="${result.getVenue().zipCode}"/>
+                <div th:text="${result.getVenue().zipCode + '    ' + result.getVenue().city + '  ' + result.getVenue().street + ' ' + result.getVenue().streetNumber}"/>
             </div>
         </div>
     </div>
