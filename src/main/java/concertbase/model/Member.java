@@ -12,7 +12,7 @@ public class Member {
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<Artist> artists = new ArrayList<>();
 
     public Member() {}

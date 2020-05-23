@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class HelloController {
+public class ApplicationController {
 
 //    @RequestMapping("/")
 //    public String index() {
@@ -33,8 +33,6 @@ public class HelloController {
         String[] genres = {"Heavy metal", "Thrash metal", "Black metal"};
         model.addAttribute("genres", genres);
         model.addAttribute("genre", new Genre());
-
-
 
         return "concerts";
     }

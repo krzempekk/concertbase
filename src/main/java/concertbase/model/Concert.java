@@ -1,11 +1,12 @@
 package concertbase.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Concert implements Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +19,7 @@ public abstract class Concert implements Comparable {
     private String name;
 
     @OneToMany(mappedBy = "concert")
-    private List<Performance> performances;
+    private List<Performance> performances = new ArrayList<>();
 
     public Concert() { }
 
@@ -26,6 +27,10 @@ public abstract class Concert implements Comparable {
         this.date = date;
         this.organizerWebsite = organizerWebsite;
         this.name = name;
+    }
+
+    public long getId(){
+        return this.id;
     }
 
     public String getName() {
@@ -36,6 +41,16 @@ public abstract class Concert implements Comparable {
         this.name = name;
     }
 
+    public List<Performance> getPerformances() {
+        return performances;
+    }
+
+    public void addPerformance(Performance performance) {
+        if(!this.performances.contains(performance)) {
+            this.performances.add(performance);
+            performance.setConcert(this);
+        }
+    }
 
     public int compareTo(Object other){
         if(!(other instanceof Concert)) return 0;
@@ -48,5 +63,10 @@ public abstract class Concert implements Comparable {
 
     public void setOrganizerWebsite(String organizerWebsite) {
         this.organizerWebsite = organizerWebsite;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.date;
     }
 }

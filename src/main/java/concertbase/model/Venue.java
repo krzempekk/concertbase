@@ -11,7 +11,7 @@ public class Venue {
     private long id;
 
 
-    @OneToMany(mappedBy = "venue", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
     @OrderBy("date DESC")
     private SortedSet<LiveConcert> liveConcerts = new TreeSet<LiveConcert>();
 
@@ -81,6 +81,8 @@ public class Venue {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public long getId(){ return this.id; }
 
 //    public void addLiveConcert(LiveConcert liveConcert){
 //        this.liveConcerts.add(liveConcert);

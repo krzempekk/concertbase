@@ -15,10 +15,10 @@ public class Artist {
     @OneToMany(mappedBy = "artist")
     private List<Performance> performances;
 
-    @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "artists")
     private List<Member> members = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "artists", cascade = {CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "artists", cascade=CascadeType.ALL)
     private List<Subgenre> subgenres = new ArrayList<>();
 
     public Artist() {};
@@ -30,6 +30,15 @@ public class Artist {
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
+
+    public List<Performance> getPerformances() { return performances; }
+
+    public void addPerformance(Performance performance) {
+        if(!this.performances.contains(performance)) {
+            this.performances.add(performance);
+            performance.setArtist(this);
+        }
+    }
 
     public List<Member> getMembers() { return members; }
 

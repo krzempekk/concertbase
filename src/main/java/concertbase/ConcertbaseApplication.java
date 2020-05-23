@@ -1,6 +1,10 @@
 package concertbase;
 
+import concertbase.model.*;
+import concertbase.persistence.*;
+import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
+import concertbase.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -35,16 +42,71 @@ public class ConcertbaseApplication {
 //	}
 
 	@Bean
-	public CommandLineRunner demo(ConcertService service) {
+	public CommandLineRunner demo(
+			GenreService genreService,
+			ArtistService artistService,
+			ConcertService concertService,
+			ArtistRepository artistRepository,
+			GenreRepository genreRepository,
+			SubgenreRepository subgenreRepository,
+			ConcertRepository concertRepository,
+			PerformanceRepository performanceRepository,
+            VenueRepository venueRepository
+	) {
 		return args -> {
+			genreService.addGenre("Metal");
+			genreService.addSubgenre("Doom metal", "Metal");
+			genreService.addSubgenre("Orthodox black metal", "Metal");
+			genreService.addSubgenre("Prog metal", "Metal");
+			genreService.addSubgenre("Thrash metal", "Metal");
+			genreService.addSubgenre("Speed metal", "Metal");
 
-//			venueService.addVenue("Studio", "Polska", "Kraków", "Witolda Burdyka", 1, "666-666");
-			try{
-				service.addLiveConcert("Metal chaos", "2020-12-12", "knockout.pl", "Studio", "Kraków");
+			artistService.addArtist("Katatonia", new String[] {"Doom metal", "Prog metal"});
+			artistService.addArtist("Kreator", "Thrash metal");
+			artistService.addArtist("Lamb of God", "Speed metal");
+			artistService.addArtist("Batushka", "Orthodox black metal");
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Venue venue = new Venue("Studio", "Krakow", "Polska", "Budryka", 2, "666-666" );
+
+            venueRepository.save(venue);
+			LiveConcert concert = new LiveConcert("Mystic Festival", formatter.parse("2020-06-10"), "knockout.jp2", venue);
+			concertRepository.save(concert);
+			concert = new LiveConcert("State of Unrest", formatter.parse("2020-04-02"), "knockout.jp2", null);
+			concertRepository.save(concert);
+			concert = new LiveConcert("Panihida Tour", formatter.parse("2020-03-13"), "knockout.jp2", null);
+			concertRepository.save(concert);
+
+			artistService.addPerformance("Katatonia", "Mystic Festival");
+			artistService.addPerformance("Kreator", "State of Unrest");
+			artistService.addPerformance("Lamb of God", "State of Unrest");
+			artistService.addPerformance("Batushka", "Panihida Tour");
+
+
+//			log.info("Searching for doom metal artists...");
+//			for(Artist artist: artistRepository.findAllBySubgenres_Name("Doom metal")) {
+//				log.info(artist.getName());
+//			}
+
+//			concertService.findConcertByGenre("Gothic metal");
+			Artist searchedArtist = artistRepository.findByName("Lamb of God");
+			List<Performance> performances = performanceRepository.findByArtist(searchedArtist);
+			if(performances!= null) {
+				System.out.println("Performances: ");
+				performances.forEach(System.out::println);
 			}
-			catch (Exception e){
-				e.printStackTrace();
+
+			List<Concert> foundconcerts = concertService.findByLiveByCriteria(searchedArtist, null, "Krakow", "2019-04-01", null);
+			System.out.println("Concerts with artist " + searchedArtist.getName());
+			if(foundconcerts != null) {
+				foundconcerts.forEach(System.out::println);
+			} else {
+				System.out.println("No concerts found :(");
 			}
+
+//			Subgenre subgenre = new Subgenre("Doom metal");
+//			artistRepository.findAllBySubgenresContains_Name(subgenre);
+
 //			genreService.addSubgenre("Speed metal", "Heavy metal");
 
 //			genreRepository.save(new Genre("Black metal"));
