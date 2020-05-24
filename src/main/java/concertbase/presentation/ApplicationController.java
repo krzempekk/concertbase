@@ -248,6 +248,17 @@ public class ApplicationController {
             System.out.println("Error: przy dodawaniu koncertu addConcert.html");
         }
 
+        System.out.println(concertForm.getName());
+        System.out.println(concertForm.getDate());
+        System.out.println(concertForm.getOrganizerWebsite());
+        System.out.println(concertForm.getVenueId());
+        System.out.println(concertForm.getArtistName());
+        System.out.println(concertForm.getStartTime());
+        System.out.println(concertForm.getEndTime());
+        System.out.println(concertForm.getWebsite());
+
+
+
         List<String> errors = new ArrayList<>();
         List<Concert> results = new ArrayList<>();
 
