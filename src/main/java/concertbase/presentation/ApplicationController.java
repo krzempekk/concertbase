@@ -23,23 +23,6 @@ import java.util.List;
 @Controller
 public class ApplicationController {
 
-
-//    @RequestMapping("/")
-//    public String index() {
-//        return "Greetings from Spring Boot!";
-//    }
-
-//    @GetMapping("/concerts")
-//    public String concerts(
-//        @RequestParam(name = "band", required = false) String band,
-//        Model model
-//    ) {
-//        model.addAttribute("band", band);
-//        model.addAttribute("another", "some random string");
-//        model.addAttribute("genre", new Genre());
-//        return "concerts";
-//    }
-
     @Autowired
     ConcertService concertService;
 
@@ -159,10 +142,10 @@ public class ApplicationController {
 
         results.add(foundConcert);
 
-        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
-        results.add(temp_mockup);
-        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
-        results.add(temp_mockup2);
+//        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
+//        results.add(temp_mockup);
+//        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
+//        results.add(temp_mockup2);
 
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
@@ -237,7 +220,7 @@ public class ApplicationController {
     }
 
 
-    @PostMapping("/addConcert") //TODO nie wiem czemu POST przenosi na advancedSearch
+    @PostMapping("/addConcert")
     public String addConcertPagePost(
             @Valid ConcertForm concertForm,
             BindingResult bindingResult,
@@ -271,7 +254,7 @@ public class ApplicationController {
                         concertForm.getVenueId()
                 );
 
-                Performance performance = artistService.addPerformance(
+                artistService.addPerformance(
                         concertForm.getArtistName(),
                         concert,
                         concertForm.getStartTime(),
@@ -284,6 +267,13 @@ public class ApplicationController {
                         concertForm.getDate(),
                         concertForm.getOrganizerWebsite(),
                         concertForm.getWebsite()
+                );
+
+                artistService.addPerformance(
+                        concertForm.getArtistName(),
+                        concert,
+                        concertForm.getStartTime(),
+                        concertForm.getEndTime()
                 );
             }
         }

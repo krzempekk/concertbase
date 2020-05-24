@@ -17,7 +17,7 @@
 <div class="page">
     <div th:replace="fragments/mainTitle :: mainTitle"></div>
 
-    <form class="searchPage" id="searchPage" method="post" th:action="@{/advancedSearch}" th:object="${concertForm}">
+    <form class="searchPage" id="searchPage" method="post" th:action="@{/addConcert}" th:object="${concertForm}">
         <div class="searchTitle">Add a concert</div>
         <div class="searchInputs">
             <input class="searchBar" type="text" name="name" placeholder="Concert Name" th:field="*{name}">
