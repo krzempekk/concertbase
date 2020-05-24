@@ -241,7 +241,7 @@ public class ApplicationController {
 //        System.out.println(concertForm.getEndTime());
 //        System.out.println(concertForm.getWebsite());
 
-
+        model.addAttribute("venues",  venueService.getAllVenues());
 
         List<String> errors = new ArrayList<>();
         List<Concert> results = new ArrayList<>();
@@ -296,6 +296,7 @@ public class ApplicationController {
         model.addAttribute("concertForm", concertForm);
         model.addAttribute("errors", errors);
         model.addAttribute("results", results);
+
         return "addConcert";
     }
 
