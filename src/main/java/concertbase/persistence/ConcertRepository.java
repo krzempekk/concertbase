@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface ConcertRepository extends CrudRepository<Concert, Long>, JpaSpecificationExecutor<Concert> {
-    Concert findByName(String name);
+    Concert findByNameIgnoreCase(String name);
 
     List<Concert> findByPerformances_ArtistIn(List<Artist> artists);
 
