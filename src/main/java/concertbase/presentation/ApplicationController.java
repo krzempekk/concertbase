@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.management.InvalidAttributeValueException;
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,42 +30,42 @@ public class ApplicationController {
     ArtistService artistService;
 
 
-    @GetMapping("/concerts/add")
-    public String addConcertGet(
-        ConcertForm concertForm,
-        Model model
-    ) {
-        model.addAttribute("concertForm", concertForm);
-        model.addAttribute("venues",  venueService.getAllVenues());
-        return "concert-add";
-    }
-
-    @PostMapping("/concerts/add")
-    public String addConcertPost(
-        @Valid ConcertForm concertForm,
-        BindingResult bindingResult
-    ) throws ParseException, InvalidAttributeValueException {
-
-        if(bindingResult.hasErrors()) {
-            return "concert-add";
-        }
-
-        Concert concert = concertService.addLiveConcert(
-            concertForm.getName(),
-            concertForm.getDate(),
-            concertForm.getOrganizerWebsite(),
-            concertForm.getVenueId()
-        );
-
-        Performance performance = artistService.addPerformance(
-            concertForm.getArtistName(),
-            concert,
-            concertForm.getStartTime(),
-            concertForm.getEndTime()
-        );
-
-        return "concerts";
-    }
+//    @GetMapping("/concerts/add")
+//    public String addConcertGet(
+//        ConcertForm concertForm,
+//        Model model
+//    ) {
+//        model.addAttribute("concertForm", concertForm);
+//        model.addAttribute("venues",  venueService.getAllVenues());
+//        return "concert-add";
+//    }
+//
+//    @PostMapping("/concerts/add")
+//    public String addConcertPost(
+//        @Valid ConcertForm concertForm,
+//        BindingResult bindingResult
+//    ) throws ParseException, InvalidAttributeValueException {
+//
+//        if(bindingResult.hasErrors()) {
+//            return "concert-add";
+//        }
+//
+//        Concert concert = concertService.addLiveConcert(
+//            concertForm.getName(),
+//            concertForm.getDate(),
+//            concertForm.getOrganizerWebsite(),
+//            concertForm.getVenueId()
+//        );
+//
+//        Performance performance = artistService.addPerformance(
+//            concertForm.getArtistName(),
+//            concert,
+//            concertForm.getStartTime(),
+//            concertForm.getEndTime()
+//        );
+//
+//        return "concerts";
+//    }
 
     @GetMapping("/concerts/find")
     public String findConcertsGet(
@@ -231,14 +228,14 @@ public class ApplicationController {
             System.out.println("Error: przy dodawaniu koncertu addConcert.html");
         }
 
-        System.out.println(concertForm.getName());
-        System.out.println(concertForm.getDate());
-        System.out.println(concertForm.getOrganizerWebsite());
-        System.out.println(concertForm.getVenueId());
-        System.out.println(concertForm.getArtistName());
-        System.out.println(concertForm.getStartTime());
-        System.out.println(concertForm.getEndTime());
-        System.out.println(concertForm.getWebsite());
+//        System.out.println(concertForm.getName());
+//        System.out.println(concertForm.getDate());
+//        System.out.println(concertForm.getOrganizerWebsite());
+//        System.out.println(concertForm.getVenueId());
+//        System.out.println(concertForm.getArtistName());
+//        System.out.println(concertForm.getStartTime());
+//        System.out.println(concertForm.getEndTime());
+//        System.out.println(concertForm.getWebsite());
 
 
 

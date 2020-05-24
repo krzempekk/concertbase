@@ -64,6 +64,8 @@ body{
     font-size: 49px;
 }
 
+
+
 .videoPlayers{
     height: 40vh;
     position: relative;
@@ -281,6 +283,13 @@ body{
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 30px;
+}
+
+.queryResult > .queriedConcert > .concertSubTitle{
+    text-align: center;
+    font-size: 22px;
+    margin-top: -20px;
+    margin-bottom: 20px;
 }
 
 .sectionRight.live{

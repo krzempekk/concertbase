@@ -46,6 +46,11 @@
         <div class="queriedConcert" th:each="result : ${results}">
             <div th:text="${result.getDate()}"/>
             <div class="concertTitle" th:text="${result.getName()}"/>
+            <div class="concertSubTitle">
+                <span th:each="performance : ${result.getPerformances()}" th:text="${performance.getArtist().getName() + ' '}"/>
+            </div>
+<!--            <div class="concertSubTitle" th:text="${result.getPerformances()[0].getArtist().getName()}"/>-->
+
             Organisator website: <a target="_blank" th:href="@{${result.getOrganizerWebsite()}}" th:text="${result.getOrganizerWebsite()}"/>
 
             <div class="sectionRight streamed" th:if="${result.getType() == T(concertbase.util.ConcertType).STREAMED}">

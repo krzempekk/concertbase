@@ -25,30 +25,9 @@ public class ConcertbaseApplication {
 		SpringApplication.run(ConcertbaseApplication.class, args);
 	}
 
-//	@Bean
-//	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-//		return args -> {
-//			System.out.println("Gówno");
-//
-//			String[] beanNames = ctx.getBeanDefinitionNames();
-//			Arrays.sort(beanNames);
-//			for(String beanName: beanNames) {
-//				System.out.println(beanName);
-//			}
-//		};
-//	}
-
 	@Bean
 	public CommandLineRunner demo(
-			GenreService genreService,
-			ArtistService artistService,
-			ConcertService concertService,
-			ArtistRepository artistRepository,
-			GenreRepository genreRepository,
-			SubgenreRepository subgenreRepository,
-			ConcertRepository concertRepository,
-			PerformanceRepository performanceRepository,
-            VenueService venueService
+			ConcertService concertService
 	) {
 		return args -> {
 			concertService.findByCriteria("Bloodbath", null, null, null, null, null);
