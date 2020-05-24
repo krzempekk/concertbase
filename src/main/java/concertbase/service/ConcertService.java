@@ -47,7 +47,7 @@ public class ConcertService {
 
 
     public void findConcertByGenre(String subgenreName) {
-        List<Artist> artistList = artistRepository.findAllBySubgenres_Name(subgenreName);
+        List<Artist> artistList = artistRepository.findAllBySubgenres_NameIgnoreCase(subgenreName);
         System.out.println("Concerts with subgenre " + subgenreName + ":");
         for(Concert concert: concertRepository.findByPerformances_ArtistIn(artistList)) {
             System.out.println(concert.getName());
@@ -163,7 +163,7 @@ public class ConcertService {
     }
 
 
-    public Concert findByName(String name){ return this.concertRepository.findByName(name); }
+    public Concert findByName(String name){ return this.concertRepository.findByNameIgnoreCase(name); }
 
 
 }

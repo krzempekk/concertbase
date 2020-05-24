@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArtistRepository extends CrudRepository<Artist, Long> {
     Artist findByName(String name);
 
-    List<Artist> findAllBySubgenres_Name(String subgenres_name);
+    List<Artist> findAllBySubgenres_NameIgnoreCase(String subgenres_name);
 
     List<Artist> findBySubgenresContains(Subgenre subgenre);
 }
