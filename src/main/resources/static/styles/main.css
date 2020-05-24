@@ -288,3 +288,16 @@ body{
     grid-column-gap: 2vw;
     justify-items: start;
 }
+
+
+.addConcert{
+    min-height: 20vh;
+}
+
+.addConcert > .searchInputs{
+    background: transparent;
+}
+
+.addConcert .buttons{
+    grid-template-columns: 66.66666%;
+}
