@@ -110,6 +110,8 @@ public class ApplicationController {
     ){
         List<Concert> results = new ArrayList<>();
         List<String> errors = new ArrayList<>();
+        List<Concert> streamedConcerts = concertService.findByCriteria(null, null, null, null, null, ConcertType.STREAMED);
+        model.addAttribute("streamedConcerts", streamedConcerts);
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
         model.addAttribute("errors", errors);
@@ -144,6 +146,8 @@ public class ApplicationController {
 //        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
 //        results.add(temp_mockup2);
 
+        List<Concert> streamedConcerts = concertService.findByCriteria(null, null, null, null, null, ConcertType.STREAMED);
+        model.addAttribute("streamedConcerts", streamedConcerts);
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
         model.addAttribute("errors", errors);

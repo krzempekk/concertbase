@@ -66,8 +66,8 @@ public class DataLoader implements ApplicationRunner {
         Concert concert3 = concertService.addLiveConcert("Bloodbath world tour", "2021-03-03", "https://www.knockoutprod.net/", "Spodek", "Katowice");
         Concert concert6 = concertService.addLiveConcert("Andrzej śpiewa i wiruje", "2020-06-22", "https://www.strzyzow.pl/", "Ogródek Andrzeja", "Strzyżów");
 
-        Concert concert4 = concertService.addStreamedConcert("Lucy Rose stream", "2020-07-03", "https://www.knockoutprod.net/", "https://www.facebook.com/");
-        Concert concert5 = concertService.addStreamedConcert("Panihida live", "2020-06-06", "https://www.knockoutprod.net/", "https://www.facebook.com/");
+        Concert concert4 = concertService.addStreamedConcert("Zora Cock livestream", "2020-07-03", "https://www.knockoutprod.net/", "https://www.youtube.com/embed/MV6TpgnlNfw");
+        Concert concert5 = concertService.addStreamedConcert("Suffocation & Carnifex", "2020-06-06", "https://www.knockoutprod.net/", "https://www.youtube.com/embed/OkIpzKzLm-8");
 
 
 
