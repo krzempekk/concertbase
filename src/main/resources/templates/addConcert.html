@@ -7,41 +7,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
     <link th:href="@{/styles/advancedSearch.css}" rel="stylesheet" />
+    <link th:href="@{/styles/addConcert.css}" rel="stylesheet" />
 </head>
 
 
+
 <body>
+
 <div class="page">
     <div th:replace="fragments/mainTitle :: mainTitle"></div>
 
-    <form class="searchPage" id="searchPage" method="post" th:action="@{/advancedSearch}" th:object="${searchForm}">
-        <div class="searchTitle">Search for concert</div>
+    <form class="searchPage" id="searchPage" method="post" th:action="@{/advancedSearch}" th:object="${concertForm}">
+        <div class="searchTitle">Add a concert</div>
         <div class="searchInputs">
-            <input class="searchBar" type="text" name="artist" placeholder="Artist Name" th:field="*{artistName}">
+            <input class="searchBar" type="text" name="name" placeholder="Concert Name" th:field="*{name}">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+            <input class="searchBar date" type="text" name="artist" placeholder="Date" th:field="*{date}" onfocus="(this.type='date')">
+            <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
+
+            <input class="searchBar" type="text" name="artistName" placeholder="Artist Name" th:field="*{artistName}">
             <span th:if="${#fields.hasErrors('artistName')}" th:errors="*{artistName}"></span>
 
-            <input class="searchBar" type="text" name="artist" placeholder="Subgenre Name" th:field="*{subgenreName}">
-            <span th:if="${#fields.hasErrors('subgenreName')}" th:errors="*{subgenreName}"></span>
+            <input class="searchBar" type="text" name="organizerWebsite" placeholder="Organizer Website" th:field="*{organizerWebsite}">
+            <span th:if="${#fields.hasErrors('organizerWebsite')}" th:errors="*{organizerWebsite}"></span>
 
-            <input class="searchBar city" type="text" name="artist" placeholder="City" th:field="*{city}">
-            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
-            <div style="background: transparent"></div>
+            <input class="searchBar" type="time" name="startTime" placeholder="Start Time" th:field="*{startTime}">
+            <span th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></span>
 
-            <input class="searchBar date" type="text" name="artist" placeholder="Date From" th:field="*{dateFrom}" onfocus="(this.type='date')">
-            <span th:if="${#fields.hasErrors('dateFrom')}" th:errors="*{dateFrom}"></span>
+            <input class="searchBar" type="time" name="endTime" placeholder="End Time" th:field="*{endTime}">
+            <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span>
 
-            <input class="searchBar date" type="text" name="artist" placeholder="Date To" th:field="*{dateTo}" onfocus="(this.type='date')">
-            <span th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></span>
+            <select th:field="*{venueId}">
+                <option th:each="venue: ${venues}" th:value="${venue.getId()}" th:text="${venue.getName()}"></option>
+            </select>
+
+            <input class="searchBar" type="text" name="website" placeholder="Website" th:field="*{website}">
+            <span th:if="${#fields.hasErrors('website')}" th:errors="*{website}"></span>
+
+
+
+
 
             <div class="buttons">
-                <input class="searchButton wide" type="submit" value="Search">
+                <input class="searchButton wide" type="submit" value="Add concert">
             </div>
 
         </div>
     </form>
 
+
     <div class="queryResult" th:if="${results.size() > 0}">
-        <div class="searchTitle">Search results</div>
+        <div class="searchTitle">Succesfully added a concert</div>
 
         <div class="queriedConcert" th:each="result : ${results}">
             <div th:text="${result.getDate()}"/>

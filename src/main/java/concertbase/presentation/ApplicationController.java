@@ -222,6 +222,82 @@ public class ApplicationController {
         return "advancedSearch";
     }
 
+    @GetMapping("/addConcert")
+    public String addConcertPage(
+            ConcertForm concertForm,
+            Model model
+    ){
+        List<Concert> results = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
+        model.addAttribute("concertForm", concertForm);
+        model.addAttribute("results", results);
+        model.addAttribute("errors", errors);
+        model.addAttribute("venues",  venueService.getAllVenues());
+        return "addConcert";
+    }
+
+
+    @PostMapping("/addConcert") //TODO nie wiem czemu POST przenosi na advancedSearch
+    public String addConcertPagePost(
+            @Valid ConcertForm concertForm,
+            BindingResult bindingResult,
+            Model model
+    )
+    {
+        if(bindingResult.hasErrors()) {
+            System.out.println("Error: przy dodawaniu koncertu addConcert.html");
+        }
+
+        List<String> errors = new ArrayList<>();
+        List<Concert> results = new ArrayList<>();
+
+        try {
+            if( !concertForm.getWebsite().equals("") ){
+                Concert concert = concertService.addLiveConcert(
+                        concertForm.getName(),
+                        concertForm.getDate(),
+                        concertForm.getOrganizerWebsite(),
+                        concertForm.getVenueId()
+                );
+
+                Performance performance = artistService.addPerformance(
+                        concertForm.getArtistName(),
+                        concert,
+                        concertForm.getStartTime(),
+                        concertForm.getEndTime()
+                );
+            }
+            else{
+                Concert concert = concertService.addStreamedConcert(
+                        concertForm.getName(),
+                        concertForm.getDate(),
+                        concertForm.getOrganizerWebsite(),
+                        concertForm.getWebsite()
+                );
+            }
+        }
+        catch (Exception e){
+            results = new ArrayList<>();
+        }
+
+        Concert addedConcert = this.concertService.findByName(concertForm.getName());
+        if (addedConcert == null){
+            errors.add(String.format("Couldn't add: %s", concertForm.getName() ));
+            model.addAttribute("results", results);
+            model.addAttribute("errors", errors);
+            return "addConcert";
+        }
+
+        results.add(addedConcert);
+
+
+        model.addAttribute("concertForm", concertForm);
+        model.addAttribute("errors", errors);
+        model.addAttribute("results", results);
+        return "addConcert";
+    }
+
+
 
 
 }
