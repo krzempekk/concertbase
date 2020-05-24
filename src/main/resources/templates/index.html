@@ -13,11 +13,11 @@
 
     <div class="videoPlayers">
         <div class="bigVideoPlayer">
-            <iframe width="1519" height="586" th:src="${streamedConcerts[0].getWebsite()}" src="https://www.youtube.com/embed/OkIpzKzLm-8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="1519" height="586" th:src="${streamedConcerts[0].getWebsite()}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="shortTitle" th:text="${streamedConcerts[0].getName()}"/>
         </div>
         <div class="normalVideoPlayer" th:each="streamedConcert, iter: ${streamedConcerts}" th:if="${iter.index != 0}">
-            <iframe width="1519" height="586" th:src="${streamedConcert.getWebsite()}" src="https://www.youtube.com/embed/OkIpzKzLm-8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="1519" height="586" th:src="${streamedConcert.getWebsite()}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="shortTitle" th:text="${streamedConcert.getName()}"/>
         </div>
 <!--        <div class="bigVideoPlayer">-->
