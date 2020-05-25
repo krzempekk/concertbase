@@ -1,7 +1,104 @@
+:root{
+    --color_opcja1: var(--color2);
+    --color_opcja2: var(--color2);
+
+}
+
 .searchInputs{
     grid-template-rows: 5vh 5vh 5vh 5vh;
 }
 
 .searchPage{
     min-height: 46vh;
+}
+
+select.searchBar{
+    height: 6vh !important;
+}
+
+
+.switch {
+    position: relative;
+    display: block;
+    /*vertical-align: top;*/
+
+    cursor: pointer;
+    width: 100%;
+    padding: 0 !important;
+    border-radius: 2px;
+    height: 6vh !important;
+}
+
+.switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.switch-label {
+    position: relative;
+    height: inherit;
+    display: block;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    font-size: 13.33333px;
+    padding: 0 2vh;
+    background: var(--color_opcja1);
+}
+
+.switch-label:before, .switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+}
+
+
+.switch-label:before {
+    content: attr(data-off);
+    color: var(--white);
+    right: 2vw;
+}
+.switch-label:after {
+    content: attr(data-on);
+    opacity: 0;
+    color: var(--white);
+    left: 2vw;
+}
+
+.switch-input:checked ~ .switch-label {
+    background: var(--color_opcja2);
+}
+
+.switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+.switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+
+.switch-handle {
+    position: absolute;
+    top: 1.5vh;
+    height: 3vh;
+    left: 1.5vh;
+    width: 3vh;
+    background: var(--white);
+    border-radius: 100%;
+}
+
+.switch-input:checked ~ .switch-handle {
+    left: calc( 100% - 4.5vh );
+}
+
+.switch-label, .switch-handle {
+    transition: All 0.5s ease;
+    -webkit-transition: All 0.5s ease;
+    -moz-transition: All 0.5s ease;
+    -o-transition: All 0.5s ease;
 }

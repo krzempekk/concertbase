@@ -38,14 +38,19 @@
             <input class="searchBar" type="time" name="endTime" placeholder="End Time" th:field="*{endTime}">
             <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span>
 
-            <!-- TODO zrobić wybór LIVE/STREAMED -->
+            <label class="searchBar switch">
+                <input class="switch-input" type="checkbox" />
+                <span class="switch-label" data-on="Live concert" data-off="Streamed concert" onclick="switchInputs()"></span>
+                <span class="switch-handle"></span>
+            </label>
 
 
-            <select th:field="*{venueId}">
+
+            <select id="liveConcert" class="searchBar" th:field="*{venueId}">
                 <option th:each="venue: ${venues}" th:value="${venue.getId()}" th:text="${venue.getName()}"></option>
             </select>
 
-            <input class="searchBar" type="text" name="website" placeholder="Website" th:field="*{website}">
+            <input id="streamedConcert" class="searchBar" type="text" name="website" placeholder="Website" th:field="*{website}">
             <span th:if="${#fields.hasErrors('website')}" th:errors="*{website}"></span>
 
 
@@ -93,5 +98,25 @@
 
 
 </div>
+<script>
+    var flag=0;
+    switchInputs();
+
+    function switchInputs(){
+        let liveConcert = document.getElementById("liveConcert");
+        let streamedConcert = document.getElementById("streamedConcert");
+
+        if(flag==0){
+            liveConcert.style.display = "none";
+            streamedConcert.style.display = "initial";
+        }
+        else{
+            liveConcert.style.display = "initial";
+            streamedConcert.style.display = "none";
+            streamedConcert.value = "";
+        }
+        flag = (flag + 1)%2;
+    }
+</script>
 </body>
 </html>
