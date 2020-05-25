@@ -229,6 +229,11 @@ public class ApplicationController {
             BindingResult bindingResult,
             Model model
     ) {
+        List<String> errors = new ArrayList<>();
+        List<Concert> results = new ArrayList<>();
+
+        model.addAttribute("errors", errors);
+        model.addAttribute("results", results);
         model.addAttribute("venues",  venueService.getAllVenues());
         model.addAttribute("concertForm", concertForm);
 
@@ -239,8 +244,6 @@ public class ApplicationController {
         }
 
 
-        List<String> errors = new ArrayList<>();
-        List<Concert> results = new ArrayList<>();
         Concert concert = null;
 
         try {
@@ -281,8 +284,8 @@ public class ApplicationController {
 
         results.add(concert);
 
-        model.addAttribute("errors", errors);
-        model.addAttribute("results", results);
+//        model.addAttribute("errors", errors);
+//        model.addAttribute("results", results);
 
         return "addConcert";
     }

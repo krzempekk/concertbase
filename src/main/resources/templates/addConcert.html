@@ -19,7 +19,7 @@
 
     <form class="searchPage" id="searchPage" method="post" th:action="@{/addConcert}" th:object="${concertForm}">
         <div class="searchTitle">Add a concert</div>
-        <div class="searchInputs">
+        <div class="searchInputs addInputs">
             <input class="searchBar" type="text" name="name" placeholder="Concert Name" th:field="*{name}">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
