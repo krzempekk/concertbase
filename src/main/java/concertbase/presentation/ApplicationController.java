@@ -247,7 +247,7 @@ public class ApplicationController {
         List<Concert> results = new ArrayList<>();
 
         try {
-            if( !concertForm.getWebsite().equals("") ){
+            if( concertForm.getWebsite().equals("") ){
                 Concert concert = concertService.addLiveConcert(
                         concertForm.getName(),
                         concertForm.getDate(),
