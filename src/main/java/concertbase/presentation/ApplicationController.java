@@ -186,13 +186,13 @@ public class ApplicationController {
 
         List<Concert> results;
         try {
-                    results = concertService.findByCriteria(
-                    searchForm.getArtistName(),
-                    searchForm.getSubgenreName(),
-                    searchForm.getCity(),
-                    searchForm.getDateFrom(),
-                    searchForm.getDateTo(),
-                    ConcertType.ANY
+            results = concertService.findByCriteria(
+                searchForm.getArtistName(),
+                searchForm.getSubgenreName(),
+                searchForm.getCity(),
+                searchForm.getDateFrom(),
+                searchForm.getDateTo(),
+                ConcertType.ANY
             );
         }
         catch (Exception e){
@@ -234,16 +234,8 @@ public class ApplicationController {
             System.out.println("Error: przy dodawaniu koncertu addConcert.html");
         }
 
-//        System.out.println(concertForm.getName());
-//        System.out.println(concertForm.getDate());
-//        System.out.println(concertForm.getOrganizerWebsite());
-//        System.out.println(concertForm.getVenueId());
-//        System.out.println(concertForm.getArtistName());
-//        System.out.println(concertForm.getStartTime());
-//        System.out.println(concertForm.getEndTime());
-//        System.out.println(concertForm.getWebsite());
-
         model.addAttribute("venues",  venueService.getAllVenues());
+        model.addAttribute("concertForm", concertForm);
 
         List<String> errors = new ArrayList<>();
         List<Concert> results = new ArrayList<>();
@@ -294,8 +286,6 @@ public class ApplicationController {
 
         results.add(addedConcert);
 
-
-        model.addAttribute("concertForm", concertForm);
         model.addAttribute("errors", errors);
         model.addAttribute("results", results);
 

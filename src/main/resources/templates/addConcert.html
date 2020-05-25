@@ -23,6 +23,7 @@
             <input class="searchBar" type="text" name="name" placeholder="Concert Name" th:field="*{name}">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
+
             <input class="searchBar date" type="text" name="artist" placeholder="Date" th:field="*{date}" onfocus="(this.type='date')">
             <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
 

@@ -1,10 +1,6 @@
 package concertbase;
 
-import concertbase.persistence.*;
-import concertbase.service.ArtistService;
 import concertbase.service.ConcertService;
-import concertbase.service.GenreService;
-import concertbase.service.VenueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
