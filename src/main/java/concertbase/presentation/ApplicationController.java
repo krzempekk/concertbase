@@ -228,63 +228,58 @@ public class ApplicationController {
             @Valid ConcertForm concertForm,
             BindingResult bindingResult,
             Model model
-    )
-    {
-        if(bindingResult.hasErrors()) {
-            System.out.println("Error: przy dodawaniu koncertu addConcert.html");
-        }
-
+    ) {
         model.addAttribute("venues",  venueService.getAllVenues());
         model.addAttribute("concertForm", concertForm);
 
+        if(bindingResult.hasErrors()) {
+            System.out.println("Error: przy dodawaniu koncertu addConcert.html");
+
+            return "addConcert";
+        }
+
+
         List<String> errors = new ArrayList<>();
         List<Concert> results = new ArrayList<>();
+        Concert concert = null;
 
         try {
-            if( concertForm.getWebsite().equals("") ){
-                Concert concert = concertService.addLiveConcert(
+            if (concertForm.getWebsite().equals("")) {
+                concert = concertService.addLiveConcert(
                         concertForm.getName(),
                         concertForm.getDate(),
                         concertForm.getOrganizerWebsite(),
                         concertForm.getVenueId()
                 );
 
-                artistService.addPerformance(
-                        concertForm.getArtistName(),
-                        concert,
-                        concertForm.getStartTime(),
-                        concertForm.getEndTime()
-                );
-            }
-            else{
-                Concert concert = concertService.addStreamedConcert(
+            } else {
+                concert = concertService.addStreamedConcert(
                         concertForm.getName(),
                         concertForm.getDate(),
                         concertForm.getOrganizerWebsite(),
                         concertForm.getWebsite()
                 );
 
-                artistService.addPerformance(
-                        concertForm.getArtistName(),
-                        concert,
-                        concertForm.getStartTime(),
-                        concertForm.getEndTime()
-                );
             }
-        }
-        catch (Exception e){
-            results = new ArrayList<>();
-        }
-
-        Concert addedConcert = this.concertService.findByName(concertForm.getName());
-        if (addedConcert == null){
-            errors.add(String.format("Couldn't add: %s", concertForm.getName() ));
-            model.addAttribute("results", results);
-            model.addAttribute("errors", errors);
-            return "addConcert";
+            artistService.addPerformance(
+                    concertForm.getArtistName(),
+                    concert,
+                    concertForm.getStartTime(),
+                    concertForm.getEndTime()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        results.add(addedConcert);
+//        Concert addedConcert = this.concertService.findByName(concertForm.getName());
+//        if (addedConcert == null) {
+//            errors.add(String.format("Couldn't add: %s", concertForm.getName() ));
+//            model.addAttribute("results", results);
+//            model.addAttribute("errors", errors);
+//            return "addConcert";
+//        }
+
+        results.add(concert);
 
         model.addAttribute("errors", errors);
         model.addAttribute("results", results);
