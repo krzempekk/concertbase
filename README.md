@@ -11,7 +11,7 @@ Projekt po uruchomieniu aplikacji znajduje się pod adresem `http://127.0.0.1:80
 
 * **Spring Boot**
 * **JPA**
-* **PosgreSQL**
+* **PostgreSQL**
 
 ### Model
 Model bazy danych został utworzony przy wykorzystaniu mechanizmów JPA.
