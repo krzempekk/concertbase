@@ -6,6 +6,12 @@ Aby móc poprawnie uruchomić projekt, należy mieć postawioną lokalnie bazę 
 
 ## Przewodnik po projekcie
 
+### Używane narzędzia
+
+* **Spring Boot**
+* **JPA**
+* **PosgreSQL**
+
 ### Model
 Model bazy danych został utworzony przy wykorzystaniu mechanizmów JPA.
 Dla każdej tabeli zostały stworzone odpowiednie klasy.
@@ -22,6 +28,13 @@ Wykorzystane zostały następujące klasy:
 Dziedziczenie z klasy Concert odbywa się przy wykorzystaniu strategii TABLE_PER_CLASS. Rozwiązanie to powoduje, iż w warstwie bazy danych tracimy własność 
 klucza obcego w kolumnie Concert_FK w tabeli Performance. Jednak w tym przypadku całą kontrolę nad danymi w bazie sprawuje nasza aplikacja, zatem wady tego
 rozwiązania nie mają negatywnego wpływu na jej działanie.
+
+### Persistence
+Do każdej z klas stworzono interfejs ClassRepository, który rozszerza interfejs CrudRepository. Gwarantuje on 
+pełny dostęp do danych z konkretnej tabeli. Dodatkowo pozwala na definiowanie potrzebnych funkcji
+do pobierania określonych danych z bazy - na przykład funkcja `List<Artist> findAllBySubgenres_NameIgnoreCase(String subgenres_name)`
+ pozwala na pobranie listy artystów, którzy wykonują muzykę z podgatunku o podanej nazwie.
+
 
 ### Klasy Service (pakiet *service*)
 
