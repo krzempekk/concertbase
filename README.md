@@ -23,10 +23,11 @@ Dziedziczenie z klasy Concert odbywa się przy wykorzystaniu strategii TABLE_PER
 klucza obcego w kolumnie Concert_FK w tabeli Performance. Jednak w tym przypadku całą kontrolę nad danymi w bazie sprawuje nasza aplikacja, zatem wady tego
 rozwiązania nie mają negatywnego wpływu na jej działanie.
 
+### Klasy Service (pakiet *service*)
 
-### Controller i walidacja (*pakiet Presentation*)
+### Controller i walidacja (pakiet *presentation*)
 
-Controller zdefiniowany w klasie `ApplicationController` zawiera przede wszystkim metody mapujące zapytania GET i POST na poszczególne route'y aplikacji. W każdej z metod odpowiednio jest tworzony kontekst widoku (przez dodawanie atrybutów do obiektu klasy `Model`). Metody korzystają tylko z klas typu Service, nie odwołują się bezpośrednio do klas Repository, co podkreśla warstwową strukturę aplikacji. W klasach `ConcertForm`, `SearchForm` i `VerySimpleSearchForm` zdefiniowane są modele formularzy. W przypadku `ConcertForm` i `VerySimpleSearchForm` zamieszczone są tam także adnotacje służące do walidacji określonych pól.
+Controller zdefiniowany w klasie `ApplicationController` zawiera przede wszystkim metody mapujące zapytania GET i POST na poszczególne route'y aplikacji. W każdej z metod odpowiednio jest tworzony kontekst widoku (przez dodawanie atrybutów do obiektu klasy `Model`). Metody korzystają tylko z klas typu Service, nie odwołują się bezpośrednio do klas Repository, co podkreśla warstwową strukturę aplikacji. W klasach `ConcertForm`, `SearchForm` i `VerySimpleSearchForm` zdefiniowane są modele formularzy. W przypadku `ConcertForm` i `VerySimpleSearchForm` zamieszczone są tam także adnotacje służące do walidacji określonych pól. W przypadku gdy wystąpi błąd walidacji, do frontendu przekazywana jest stosowna informacja.
 
 ### Frontend
 
