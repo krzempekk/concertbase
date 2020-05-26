@@ -36,9 +36,11 @@ do pobierania określonych danych z bazy - na przykład funkcja `List<Artist> fi
  pozwala na pobranie listy artystów, którzy wykonują muzykę z podgatunku o podanej nazwie.
 
 
-### Controller i walidacja (*pakiet Presentation*)
+### Klasy Service (pakiet *service*)
 
-Controller zdefiniowany w klasie `ApplicationController` zawiera przede wszystkim metody mapujące zapytania GET i POST na poszczególne route'y aplikacji. W każdej z metod odpowiednio jest tworzony kontekst widoku (przez dodawanie atrybutów do obiektu klasy `Model`). Metody korzystają tylko z klas typu Service, nie odwołują się bezpośrednio do klas Repository, co podkreśla warstwową strukturę aplikacji. W klasach `ConcertForm`, `SearchForm` i `VerySimpleSearchForm` zdefiniowane są modele formularzy. W przypadku `ConcertForm` i `VerySimpleSearchForm` zamieszczone są tam także adnotacje służące do walidacji określonych pól.
+### Controller i walidacja (pakiet *presentation*)
+
+Controller zdefiniowany w klasie `ApplicationController` zawiera przede wszystkim metody mapujące zapytania GET i POST na poszczególne route'y aplikacji. W każdej z metod odpowiednio jest tworzony kontekst widoku (przez dodawanie atrybutów do obiektu klasy `Model`). Metody korzystają tylko z klas typu Service, nie odwołują się bezpośrednio do klas Repository, co podkreśla warstwową strukturę aplikacji. W klasach `ConcertForm`, `SearchForm` i `VerySimpleSearchForm` zdefiniowane są modele formularzy. W przypadku `ConcertForm` i `VerySimpleSearchForm` zamieszczone są tam także adnotacje służące do walidacji określonych pól. W przypadku gdy wystąpi błąd walidacji, do frontendu przekazywana jest stosowna informacja.
 
 ### Frontend
 
