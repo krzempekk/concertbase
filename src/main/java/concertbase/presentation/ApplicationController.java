@@ -168,6 +168,8 @@ public class ApplicationController {
 
         Concert concert = null;
 
+
+
         try {
             if (concertForm.getWebsite().equals("")) {
                 concert = concertService.addLiveConcert(
