@@ -30,79 +30,6 @@ public class ApplicationController {
     ArtistService artistService;
 
 
-//    @GetMapping("/concerts/add")
-//    public String addConcertGet(
-//        ConcertForm concertForm,
-//        Model model
-//    ) {
-//        model.addAttribute("concertForm", concertForm);
-//        model.addAttribute("venues",  venueService.getAllVenues());
-//        return "concert-add";
-//    }
-//
-//    @PostMapping("/concerts/add")
-//    public String addConcertPost(
-//        @Valid ConcertForm concertForm,
-//        BindingResult bindingResult
-//    ) throws ParseException, InvalidAttributeValueException {
-//
-//        if(bindingResult.hasErrors()) {
-//            return "concert-add";
-//        }
-//
-//        Concert concert = concertService.addLiveConcert(
-//            concertForm.getName(),
-//            concertForm.getDate(),
-//            concertForm.getOrganizerWebsite(),
-//            concertForm.getVenueId()
-//        );
-//
-//        Performance performance = artistService.addPerformance(
-//            concertForm.getArtistName(),
-//            concert,
-//            concertForm.getStartTime(),
-//            concertForm.getEndTime()
-//        );
-//
-//        return "concerts";
-//    }
-
-    @GetMapping("/concerts/find")
-    public String findConcertsGet(
-        SearchForm searchForm,
-        Model model
-    ) {
-
-        model.addAttribute("searchForm", searchForm);
-
-        return "concerts";
-    }
-
-    @PostMapping("/concerts/find")
-    public String findConcertsPost(
-        SearchForm searchForm,
-        BindingResult bindingResult,
-        Model model
-    ) {
-        if(bindingResult.hasErrors()) {
-            return "concerts";
-        }
-
-        List<Concert> concerts = concertService.findByCriteria(
-            searchForm.getArtistName(),
-            searchForm.getSubgenreName(),
-            searchForm.getCity(),
-            searchForm.getDateFrom(),
-            searchForm.getDateTo(),
-            ConcertType.ANY
-        );
-
-        model.addAttribute("concerts", concerts);
-
-        return "concerts";
-    }
-
-
     @GetMapping("/")
     public String indexPage(
         VerySimpleSearchForm searchForm,
@@ -144,11 +71,6 @@ public class ApplicationController {
         }
 
         results.add(foundConcert);
-
-//        Concert temp_mockup = new StreamedConcert("Dobra bimba u Andrzeja", new Date(432429834), "google.com", ConcertType.STREAMED, "https");
-//        results.add(temp_mockup);
-//        Concert temp_mockup2 = new LiveConcert("String name", new Date(4542342), "String organizerWebsite", ConcertType.LIVE, new Venue("name", "String city", "String street", 53, "43-100"));
-//        results.add(temp_mockup2);
 
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("results", results);
