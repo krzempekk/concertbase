@@ -10,7 +10,7 @@ Aby móc poprawnie uruchomić projekt, należy mieć postawioną lokalnie bazę 
 
 * **Spring Boot**
 * **JPA**
-* **PosgreSQL**
+* **PostgreSQL**
 
 ### Model
 Model bazy danych został utworzony przy wykorzystaniu mechanizmów JPA.
