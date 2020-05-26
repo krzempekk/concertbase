@@ -37,7 +37,14 @@ do pobierania określonych danych z bazy - na przykład funkcja `List<Artist> fi
 
 
 ### Klasy Service (pakiet *service*)
-
+Klasy serwisu są łącznikiem między repozytoriami a  kontrolerem. Służą do pośredniczenia w dodawaniu danych, jak i ich wyszukiwaniu.
+Najważniejszą funkcję w aplikacji pełni ConcertService, który umożliwia zaawansowane wyszukiwanie koncertu. Aby zrealizować tę funkcjonalność
+została wykorzystana własna implementacja interfejsu Specification. Pozwala on na definiowanie własnego predykatu do filtrowania danych
+złożonego z podpredykatów. Dzięki temu koncert można wyszukiwać po dowolnej kombinacji następujących własności:
+* artyście
+* podgatunku muzycznym
+* dacie
+* mieście
 ### Controller i walidacja (pakiet *presentation*)
 
 Controller zdefiniowany w klasie `ApplicationController` zawiera przede wszystkim metody mapujące zapytania GET i POST na poszczególne route'y aplikacji. W każdej z metod odpowiednio jest tworzony kontekst widoku (przez dodawanie atrybutów do obiektu klasy `Model`). Metody korzystają tylko z klas typu Service, nie odwołują się bezpośrednio do klas Repository, co podkreśla warstwową strukturę aplikacji. W klasach `ConcertForm`, `SearchForm` i `VerySimpleSearchForm` zdefiniowane są modele formularzy. W przypadku `ConcertForm` i `VerySimpleSearchForm` zamieszczone są tam także adnotacje służące do walidacji określonych pól. W przypadku gdy wystąpi błąd walidacji, do frontendu przekazywana jest stosowna informacja.
