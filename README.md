@@ -57,4 +57,4 @@ Warstwa frontendu aplikacji składa się z trzech widoków, których szablony zd
 - **dodawania koncertu** - zawiera formularz umożliwiający dodawanie koncertu. W przypadku podania błędnych danych z backendu jest zwracany i wyświetlany błąd. W przypadku poprawnych danych koncert jest tworzony, co potwierdzane jest wyświetleniem stosownej informacji.
 - **zaawansowanego wyszukiwania koncertów** - zawiera formularz umożliwiający określenie parametrów wyszukiwania, a następnie przeprowadzenie go i wyświetlenie wyników
 
-![Strona główna]("screen.png")
+![Strona główna](https://github.com/krzempekk/concertbase/blob/master/screen.png)
