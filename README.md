@@ -4,6 +4,7 @@
 
 Aby móc poprawnie uruchomić projekt, należy mieć postawioną lokalnie bazę PostgreSQL. Domyślnie baza nazywa się "concertbase", użytkownikiem jest "postgres", a hasłem jest "postgres". Ustawienia te mogą zostać zmodyfikowane w pliku `src/main/resources/application.properties`. 
 
+Projekt po uruchomieniu aplikacji znajduje się pod adresem `http://127.0.0.1:8080/`
 ## Przewodnik po projekcie
 
 ### Używane narzędzia
@@ -55,3 +56,5 @@ Warstwa frontendu aplikacji składa się z trzech widoków, których szablony zd
 - **główny** - zawierający listę streamowanych koncertów wraz z ich embedami, opcję podstawowego wyszukiwania oraz przyciski prowadzące do widoków zaawansowanego wyszukiwania i dodawania koncertów
 - **dodawania koncertu** - zawiera formularz umożliwiający dodawanie koncertu. W przypadku podania błędnych danych z backendu jest zwracany i wyświetlany błąd. W przypadku poprawnych danych koncert jest tworzony, co potwierdzane jest wyświetleniem stosownej informacji.
 - **zaawansowanego wyszukiwania koncertów** - zawiera formularz umożliwiający określenie parametrów wyszukiwania, a następnie przeprowadzenie go i wyświetlenie wyników
+
+![Strona główna]("screen.png")
